@@ -1,0 +1,12 @@
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\bin\Debug\netstandard2.1\BLTC.Data.Models.deps.json
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\bin\Debug\netstandard2.1\BLTC.Data.Models.dll
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\bin\Debug\netstandard2.1\BLTC.Data.Models.pdb
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\bin\Debug\netstandard2.1\BLTC.Data.Common.dll
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\bin\Debug\netstandard2.1\BLTC.Data.Common.pdb
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.csprojAssemblyReference.cache
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.AssemblyInfoInputs.cache
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.AssemblyInfo.cs
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.csproj.CoreCompileInputs.cache
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.csproj.CopyComplete
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.dll
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Data\BLTC.Data.Models\obj\Debug\netstandard2.1\BLTC.Data.Models.pdb
