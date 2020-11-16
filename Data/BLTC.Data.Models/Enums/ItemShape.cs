@@ -5,5 +5,6 @@
         Bar = 0,
         Coin = 1,
         Banknote = 2,
+        Unknown = 3,
     }
 }
