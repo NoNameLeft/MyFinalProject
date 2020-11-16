@@ -6,3 +6,4 @@ C:\Users\Sunny's RIG\source\repos\MyFinalProject\Web\BLTC.Web.Infrastructure\obj
 C:\Users\Sunny's RIG\source\repos\MyFinalProject\Web\BLTC.Web.Infrastructure\obj\Debug\netstandard2.1\BLTC.Web.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Users\Sunny's RIG\source\repos\MyFinalProject\Web\BLTC.Web.Infrastructure\obj\Debug\netstandard2.1\BLTC.Web.Infrastructure.dll
 C:\Users\Sunny's RIG\source\repos\MyFinalProject\Web\BLTC.Web.Infrastructure\obj\Debug\netstandard2.1\BLTC.Web.Infrastructure.pdb
+C:\Users\Sunny's RIG\source\repos\MyFinalProject\Web\BLTC.Web.Infrastructure\obj\Debug\netstandard2.1\BLTC.Web.Infrastructure.csprojAssemblyReference.cache
