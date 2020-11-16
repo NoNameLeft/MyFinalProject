@@ -1,9 +1,8 @@
 ﻿namespace BLTC.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using BLTC.Data.Models;
     using BLTC.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
