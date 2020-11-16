@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BLTC.Data.Models.Enums
+﻿namespace BLTC.Data.Models.Enums
 {
-    class ItemShape
+    public enum ItemShape
     {
+        Bar = 0,
+        Coin = 1,
+        Banknote = 2,
+        Unknown = 3,
     }
 }
