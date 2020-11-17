@@ -10,11 +10,12 @@
         public Item()
         {
             this.Images = new HashSet<Image>();
+            this.Orders = new HashSet<OrderItem>();
         }
 
         public int ManufacturerId { get; set; }
 
-        public Manufacturer Manufacturer { get; set; }
+        public virtual Manufacturer Manufacturer { get; set; }
 
         public string Name { get; set; }
 
@@ -37,5 +38,7 @@
         public string Description { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public virtual ICollection<OrderItem> Orders { get; set; }
     }
 }

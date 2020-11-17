@@ -5,7 +5,7 @@
 
     using BLTC.Data.Common.Models;
 
-    public class Image : BaseModel<string>
+    public class Image : BaseDeletableModel<string>
     {
         public Image()
         {
@@ -17,10 +17,14 @@
 
         public virtual Item Item { get; set; }
 
+        public string AddedByEmployeeId { get; set; }
+
+        public virtual ApplicationUser AddedByEmployee { get; set; }
+
         public string Name { get; set; }
 
         public string Extension { get; set; }
 
-        public ICollection<Manufacturer> Manufacturers { get; set; }
+        public virtual ICollection<Manufacturer> Manufacturers { get; set; }
     }
 }

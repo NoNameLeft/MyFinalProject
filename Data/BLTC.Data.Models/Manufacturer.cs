@@ -8,19 +8,19 @@
     {
         public Manufacturer()
         {
-            this.Items = new HashSet<Item>();
+            this.Products = new HashSet<Item>();
         }
-
-        public virtual Country Country { get; set; }
-
-        public string ImageId { get; set; }
-
-        public Image Image { get; set; }
-
-        public string Name { get; set; }
 
         public int CountryId { get; set; }
 
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual Country Country { get; set; }
+
+        public string LogoId { get; set; }
+
+        public virtual Image Logo { get; set; }
+
+        public string Name { get; set; }
+
+        public virtual ICollection<Item> Products { get; set; }
     }
 }
