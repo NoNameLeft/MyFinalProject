@@ -42,6 +42,10 @@
 
         public DbSet<Article> Articles { get; set; }
 
+        public DbSet<AuthorArticle> AuthorsArticles { get; set; }
+
+        public DbSet<ArticleUser> ArticlesUsers { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

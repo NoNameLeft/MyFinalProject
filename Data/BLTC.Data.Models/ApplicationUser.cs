@@ -17,6 +17,7 @@ namespace BLTC.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Orders = new HashSet<OrderItem>();
+            this.Articles = new HashSet<ArticleUser>();
         }
 
         // Audit info
@@ -36,5 +37,7 @@ namespace BLTC.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<OrderItem> Orders { get; set; }
+
+        public virtual ICollection<ArticleUser> Articles { get; set; }
     }
 }

@@ -68,6 +68,9 @@ namespace BLTC.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ArticleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -126,6 +129,8 @@ namespace BLTC.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArticleId");
+
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("NormalizedEmail")
@@ -146,6 +151,130 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Votes")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("BLTC.Data.Models.ArticleUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ArticlesUsers");
+                });
+
+            modelBuilder.Entity("BLTC.Data.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AvatarId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Resume")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AvatarId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("BLTC.Data.Models.AuthorArticle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
@@ -161,71 +290,15 @@ namespace BLTC.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Votes")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("AuthorId");
 
                     b.HasIndex("IsDeleted");
 
-                    b.ToTable("Articles");
-                });
-
-            modelBuilder.Entity("BLTC.Data.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AvatarId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Resume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AvatarId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Authors");
+                    b.ToTable("AuthorsArticles");
                 });
 
             modelBuilder.Entity("BLTC.Data.Models.Country", b =>
@@ -245,12 +318,14 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("IsoCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -266,12 +341,10 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddedByEmployeeId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -281,6 +354,7 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Extension")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -293,6 +367,7 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -300,8 +375,6 @@ namespace BLTC.Data.Migrations
                     b.HasIndex("AddedByEmployeeId");
 
                     b.HasIndex("ArticleId");
-
-                    b.HasIndex("AuthorId");
 
                     b.HasIndex("IsDeleted");
 
@@ -324,9 +397,11 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Dimensions")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Fineness")
@@ -342,6 +417,7 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -391,12 +467,14 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LogoId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -430,6 +508,7 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderedOn")
@@ -439,6 +518,7 @@ namespace BLTC.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -627,11 +707,24 @@ namespace BLTC.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BLTC.Data.Models.Article", b =>
+            modelBuilder.Entity("BLTC.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("BLTC.Data.Models.Author", "Author")
+                    b.HasOne("BLTC.Data.Models.Article", null)
+                        .WithMany("Users")
+                        .HasForeignKey("ArticleId");
+                });
+
+            modelBuilder.Entity("BLTC.Data.Models.ArticleUser", b =>
+                {
+                    b.HasOne("BLTC.Data.Models.Article", "Article")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BLTC.Data.Models.ApplicationUser", "User")
+                        .WithMany("Articles")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -640,22 +733,39 @@ namespace BLTC.Data.Migrations
                 {
                     b.HasOne("BLTC.Data.Models.Image", "Avatar")
                         .WithMany()
-                        .HasForeignKey("AvatarId");
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BLTC.Data.Models.AuthorArticle", b =>
+                {
+                    b.HasOne("BLTC.Data.Models.Article", "Article")
+                        .WithMany("Authors")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BLTC.Data.Models.Author", "Author")
+                        .WithMany("Articles")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BLTC.Data.Models.Image", b =>
                 {
                     b.HasOne("BLTC.Data.Models.ApplicationUser", "AddedByEmployee")
                         .WithMany()
-                        .HasForeignKey("AddedByEmployeeId");
+                        .HasForeignKey("AddedByEmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("BLTC.Data.Models.Article", null)
+                    b.HasOne("BLTC.Data.Models.Article", "Article")
                         .WithMany("Images")
-                        .HasForeignKey("ArticleId");
-
-                    b.HasOne("BLTC.Data.Models.Author", null)
-                        .WithMany("Images")
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("BLTC.Data.Models.Item", "Item")
                         .WithMany("Images")
@@ -683,14 +793,18 @@ namespace BLTC.Data.Migrations
 
                     b.HasOne("BLTC.Data.Models.Image", "Logo")
                         .WithMany("Manufacturers")
-                        .HasForeignKey("LogoId");
+                        .HasForeignKey("LogoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BLTC.Data.Models.Order", b =>
                 {
                     b.HasOne("BLTC.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BLTC.Data.Models.OrderItem", b =>
