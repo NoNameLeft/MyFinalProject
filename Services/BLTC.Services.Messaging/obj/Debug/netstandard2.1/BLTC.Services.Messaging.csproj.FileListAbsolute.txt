@@ -1,9 +1,0 @@
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\bin\Debug\netstandard2.1\BLTC.Services.Messaging.deps.json
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\bin\Debug\netstandard2.1\BLTC.Services.Messaging.dll
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\bin\Debug\netstandard2.1\BLTC.Services.Messaging.pdb
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.csprojAssemblyReference.cache
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.AssemblyInfoInputs.cache
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.AssemblyInfo.cs
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.csproj.CoreCompileInputs.cache
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.dll
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Messaging\obj\Debug\netstandard2.1\BLTC.Services.Messaging.pdb

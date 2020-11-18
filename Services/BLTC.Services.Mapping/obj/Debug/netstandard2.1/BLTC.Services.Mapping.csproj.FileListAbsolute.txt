@@ -1,8 +1,0 @@
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\bin\Debug\netstandard2.1\BLTC.Services.Mapping.deps.json
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\bin\Debug\netstandard2.1\BLTC.Services.Mapping.dll
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\bin\Debug\netstandard2.1\BLTC.Services.Mapping.pdb
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\obj\Debug\netstandard2.1\BLTC.Services.Mapping.AssemblyInfoInputs.cache
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\obj\Debug\netstandard2.1\BLTC.Services.Mapping.AssemblyInfo.cs
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\obj\Debug\netstandard2.1\BLTC.Services.Mapping.csproj.CoreCompileInputs.cache
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\obj\Debug\netstandard2.1\BLTC.Services.Mapping.dll
-C:\Users\Sunny's RIG\source\repos\MyFinalProject\Services\BLTC.Services.Mapping\obj\Debug\netstandard2.1\BLTC.Services.Mapping.pdb
