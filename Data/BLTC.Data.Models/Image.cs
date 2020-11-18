@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using BLTC.Data.Common.Models;
 
-    public class Image : BaseModel<string>
+    public class Image : BaseDeletableModel<string>
     {
         public Image()
         {
@@ -17,10 +18,21 @@
 
         public virtual Item Item { get; set; }
 
+        public int ArticleId { get; set; }
+
+        public virtual Article Article { get; set; }
+
+        [Required]
+        public string AddedByEmployeeId { get; set; }
+
+        public virtual ApplicationUser AddedByEmployee { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Extension { get; set; }
 
-        public ICollection<Manufacturer> Manufacturers { get; set; }
+        public virtual ICollection<Manufacturer> Manufacturers { get; set; }
     }
 }

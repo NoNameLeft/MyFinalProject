@@ -1,6 +1,7 @@
 ﻿namespace BLTC.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using BLTC.Data.Common.Models;
 
@@ -8,19 +9,23 @@
     {
         public Manufacturer()
         {
-            this.Items = new HashSet<Item>();
+            this.Products = new HashSet<Item>();
         }
+
+        [Required]
+        public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
 
-        public string ImageId { get; set; }
+        [Required]
+        public string LogoId { get; set; }
 
-        public Image Image { get; set; }
+        public virtual Image Logo { get; set; }
 
+        [Required]
+        [MinLength(4)]
         public string Name { get; set; }
 
-        public int CountryId { get; set; }
-
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Item> Products { get; set; }
     }
 }
