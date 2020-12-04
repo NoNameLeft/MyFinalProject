@@ -1,0 +1,7 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.CaratsViewModel
+
+@{
+    var carats = this.Model.Carats.Select(x => new SelectListItem(x.Key, x.Value));
+}
+
+@Html.DropDownList("Fineness", carats, new { @class = "custom-select" })

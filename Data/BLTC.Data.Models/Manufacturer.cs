@@ -26,6 +26,9 @@
         [MinLength(4)]
         public string Name { get; set; }
 
+        [Required]
+        public string Overview { get; set; }
+
         public virtual ICollection<Item> Products { get; set; }
     }
 }
