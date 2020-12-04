@@ -27,6 +27,10 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new UsersSeeder(),
+                              new CountriesSeeder(),
+                              new ImagesSeeder(),
+                              new ManufacturersSeeder(),
                           };
 
             foreach (var seeder in seeders)

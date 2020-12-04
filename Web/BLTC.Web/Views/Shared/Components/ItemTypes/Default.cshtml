@@ -1,0 +1,7 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.ItemTypesViewModel
+
+@{
+    var itemTypes = this.Model.ItemsTypes.Select(x => new SelectListItem(x.Key, x.Value));
+}
+
+@Html.DropDownList("Type", itemTypes, new { @class = "custom-select" })

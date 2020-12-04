@@ -31,9 +31,11 @@
         [Required]
         public decimal Weight { get; set; }
 
+        [Required]
         public decimal Purity { get; set; }
 
-        public decimal Fineness { get; set; }
+        [Required]
+        public Carats Fineness { get; set; }
 
         [Required]
         public decimal Price { get; set; }

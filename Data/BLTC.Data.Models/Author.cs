@@ -10,12 +10,8 @@
         public Author()
         {
             this.Articles = new HashSet<AuthorArticle>();
+            this.Images = new HashSet<Image>();
         }
-
-        [Required]
-        public string AvatarId { get; set; }
-
-        public virtual Image Avatar { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -27,5 +23,7 @@
         public string Resume { get; set; }
 
         public virtual ICollection<AuthorArticle> Articles { get; set; }
+
+        public virtual ICollection<Image> Images { get; set; }
     }
 }
