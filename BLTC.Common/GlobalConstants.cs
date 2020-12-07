@@ -4,6 +4,8 @@
     {
         public const string SystemName = "BLTC";
 
+        public const string DefaultOwner = "stanislavkostadinov97@gmail.com";
+
         public const string AdministratorRoleName = "Administrator";
 
         public const string EmployeeRoleName = "Employee";

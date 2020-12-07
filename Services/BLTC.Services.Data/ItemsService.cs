@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
-    using System.Reflection;
+    using System.Threading.Tasks;
 
     using BLTC.Data.Common.Repositories;
     using BLTC.Data.Models;
@@ -19,7 +19,7 @@
             this.itemsRepository = itemsRepository;
         }
 
-        public async void Add(string name, int type, int shape, decimal weight, decimal purity, int fineness, int quantity, string dimensions, string description, int manufacturer)
+        public async Task<int> Add(string name, int type, int shape, decimal weight, decimal purity, int fineness, int quantity, string dimensions, string description, int manufacturer)
         {
             var item = new Item()
             {
@@ -37,23 +37,35 @@
             };
 
             await this.itemsRepository.AddAsync(item);
+            await this.itemsRepository.SaveChangesAsync();
 
-            // await this.itemsRepository.SaveChangesAsync();
+            return item.Id;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetKeyValuesOfEnum(Type enumType)
+        public async void AddImagesToItem(List<Image> images, int itemId)
+        {
+            var currrentItem = await Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
+            images.ForEach(x => currrentItem.Images.Add(x));
+        }
+
+        public async Task<Item> GetItemById(int itemId)
+        {
+            return await Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
+        }
+
+        public async Task<IEnumerable<KeyValuePair<string, string>>> GetKeyValuesOfEnum(Type enumType)
         {
             var displayNames = this.GetDisplayNames(enumType);
             var names = enumType.GetEnumNames();
             var values = enumType.GetEnumValues().Cast<int>().ToList();
             if (displayNames.Count > 0)
             {
-                return names.Select((n, index) =>
-                             new KeyValuePair<string, string>(displayNames[index], values[index].ToString()));
+                return await Task.FromResult(names.Select((n, index) =>
+                             new KeyValuePair<string, string>(displayNames[index], values[index].ToString())));
             }
 
-            return names.Select((n, index) =>
-                             new KeyValuePair<string, string>(n, values[index].ToString()));
+            return await Task.FromResult(names.Select((n, index) =>
+                             new KeyValuePair<string, string>(n, values[index].ToString())));
         }
 
         private decimal CalculateItemPrice()

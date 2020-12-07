@@ -17,7 +17,7 @@
         {
             var viewModel = new ManufacturersViewModel
             {
-                Manufacturers = this.manufacturersService.GetAllAsKeyValuePairs(),
+                Manufacturers = this.manufacturersService.GetAllAsKeyValuePairs().Result,
             };
 
             return this.View(viewModel);

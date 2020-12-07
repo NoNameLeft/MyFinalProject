@@ -18,7 +18,7 @@
                 return;
             }
 
-            this.defaulUserId = dbContext.Users.FirstOrDefault(x => x.UserName == "Owner").Id;
+            this.defaulUserId = dbContext.Users.FirstOrDefault(x => x.UserName == GlobalConstants.DefaultOwner).Id;
 
             await dbContext.Images.AddAsync(new Image { AddedByEmployeeId = this.defaulUserId, Name = GlobalConstants.PAMPManufacturerName, Extension = ".pgn", });
             await dbContext.Images.AddAsync(new Image { AddedByEmployeeId = this.defaulUserId, Name = GlobalConstants.ScottsdaleManufacturerName, Extension = ".pgn", });
