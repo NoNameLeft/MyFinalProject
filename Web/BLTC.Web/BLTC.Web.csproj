@@ -37,4 +37,8 @@
     <ProjectReference Include="..\BLTC.Web.Infrastructure\BLTC.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\BLTC.Web.ViewModels\BLTC.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\items\" />
+  </ItemGroup>
 </Project>

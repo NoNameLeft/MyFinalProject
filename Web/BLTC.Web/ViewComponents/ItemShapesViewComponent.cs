@@ -18,7 +18,7 @@
         {
             var viewModel = new ItemShapesViewModel
             {
-                ItemsShapes = this.itemsService.GetKeyValuesOfEnum(typeof(ItemShape)),
+                ItemsShapes = this.itemsService.GetKeyValuesOfEnum(typeof(ItemShape)).Result,
             };
 
             return this.View(viewModel);

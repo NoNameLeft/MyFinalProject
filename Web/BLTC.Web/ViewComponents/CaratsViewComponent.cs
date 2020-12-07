@@ -18,7 +18,7 @@
         {
             var viewModel = new CaratsViewModel
             {
-                Carats = this.itemsService.GetKeyValuesOfEnum(typeof(Carats)),
+                Carats = this.itemsService.GetKeyValuesOfEnum(typeof(Carats)).Result,
             };
 
             return this.View(viewModel);

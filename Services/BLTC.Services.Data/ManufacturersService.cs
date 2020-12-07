@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using BLTC.Data.Common.Repositories;
     using BLTC.Data.Models;
@@ -15,13 +16,18 @@
             this.manufacturersRepository = manufacturersRepository;
         }
 
-        public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
+        public async Task<IEnumerable<KeyValuePair<string, string>>> GetAllAsKeyValuePairs()
         {
-            return this.manufacturersRepository.AllAsNoTracking().Select(x => new
+            return await Task.FromResult(this.manufacturersRepository.AllAsNoTracking().Select(x => new
             {
                 x.Name,
                 x.Id,
-            }).ToList().Select(x => new KeyValuePair<string, string>(x.Name, x.Id.ToString()));
+            }).ToList().Select(x => new KeyValuePair<string, string>(x.Name, x.Id.ToString())));
+        }
+
+        public async Task<int> GetIdByName(string name)
+        {
+            return await Task.FromResult<int>(this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == name).Id);
         }
     }
 }
