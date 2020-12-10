@@ -9,6 +9,7 @@
     using BLTC.Data.Common.Repositories;
     using BLTC.Data.Models;
     using BLTC.Data.Models.Enums;
+    using BLTC.Services.Mapping;
 
     public class ItemsService : IItemsService
     {
@@ -21,6 +22,10 @@
 
         public async Task<int> Add(string name, int type, int shape, decimal weight, decimal purity, int fineness, int quantity, string dimensions, string description, int manufacturer)
         {
+            // if (this.itemsRepository.AllAsNoTracking().Any(x => x.Name == name))
+            // {
+            //     // do something...
+            // }
             var item = new Item()
             {
                 Name = name,
@@ -44,35 +49,53 @@
 
         public async void AddImagesToItem(List<Image> images, int itemId)
         {
-            var currrentItem = await Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
-            images.ForEach(x => currrentItem.Images.Add(x));
+            var item = await this.GetItemById(itemId);
+            images.ForEach(i => item.Images.Add(i));
         }
 
-        public async Task<Item> GetItemById(int itemId)
+        public Task<int> GetIdByName(string name)
         {
-            return await Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
+            return Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == name).Id);
         }
 
-        public async Task<IEnumerable<KeyValuePair<string, string>>> GetKeyValuesOfEnum(Type enumType)
+        public Task<Item> GetItemById(int itemId)
+        {
+            return Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
+        }
+
+        public IEnumerable<T> GetAllItems<T>()
+        {
+            return this.itemsRepository.All().To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetItem<T>(int itemId)
+        {
+            return this.itemsRepository.All().Where(x => x.Id == itemId).To<T>();
+        }
+
+        public IEnumerable<KeyValuePair<string, string>> GetKeyValuesOfEnum(Type enumType)
         {
             var displayNames = this.GetDisplayNames(enumType);
             var names = enumType.GetEnumNames();
             var values = enumType.GetEnumValues().Cast<int>().ToList();
             if (displayNames.Count > 0)
             {
-                return await Task.FromResult(names.Select((n, index) =>
-                             new KeyValuePair<string, string>(displayNames[index], values[index].ToString())));
+                return names.Select((n, index) =>
+                             new KeyValuePair<string, string>(displayNames[index], values[index].ToString()));
             }
 
-            return await Task.FromResult(names.Select((n, index) =>
-                             new KeyValuePair<string, string>(n, values[index].ToString())));
+            return names.Select((n, index) =>
+                             new KeyValuePair<string, string>(n, values[index].ToString()));
         }
 
         private decimal CalculateItemPrice()
         {
             // Implement method which calls web api and calculate the current price of the metals.
             // Add disclamer based on what you calculate the price
-            return 0;
+            var dailyGoldPricePerGram = 50.0m;
+            var currentPrice = dailyGoldPricePerGram + (dailyGoldPricePerGram * 0.33m);
+
+            return currentPrice;
         }
 
         private List<string> GetDisplayNames(Type type)

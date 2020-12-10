@@ -1,5 +1,7 @@
 ﻿namespace BLTC.Web.ViewComponents
 {
+    using System.Threading.Tasks;
+
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Mvc;
@@ -17,7 +19,7 @@
         {
             var viewModel = new ManufacturersViewModel
             {
-                Manufacturers = this.manufacturersService.GetAllAsKeyValuePairs().Result,
+                Manufacturers = this.manufacturersService.GetAllAsKeyValuePairs(),
             };
 
             return this.View(viewModel);
