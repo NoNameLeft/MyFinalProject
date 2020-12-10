@@ -25,7 +25,7 @@
                 {
                     AddedByEmployeeId = addedById,
                     Name = currentImage.Key,
-                    Extension = currentImage.Value,
+                    Extension = this.ChangeContentType(currentImage.Value),
                     CreatedOn = DateTime.UtcNow,
                 };
 
@@ -38,14 +38,9 @@
             return this.imagesRepository.AllAsNoTracking().Where(x => x.ItemId == typeId).ToList();
         }
 
-        public void GetAllByTypeAndId(object obj)
+        public async Task<Image> GetImageById(string imageId)
         {
-            // make it works...
-        }
-
-        private T GetPropValue<T>(object src, string propName)
-        {
-            return (T)src.GetType().GetProperty(propName)?.GetValue(src, null);
+            return await Task.FromResult(this.imagesRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == imageId));
         }
 
         private void GetPropertyAndAssingValue(Type type, Image image, int typeId)
@@ -53,6 +48,36 @@
             // validate if such property exist
             var typeProperty = typeof(Image).GetProperties().Where(x => x.Name == type.Name + "Id").FirstOrDefault();
             typeof(Image).GetProperty(typeProperty.Name).SetValue(image, typeId);
+        }
+
+        private string ChangeContentType(string extention)
+        {
+            switch (extention)
+            {
+                case "jpg":
+                    extention = "image/jpeg";
+                    break;
+                case "png":
+                    extention = "image/png";
+                    break;
+                case "gif":
+                    extention = "image/gif";
+                    break;
+                case "svg":
+                    extention = "image/svg+xml";
+                    break;
+                case "tiff":
+                    extention = "image/tiff";
+                    break;
+                case "webp":
+                    extention = "image/webp";
+                    break;
+                case "bmp":
+                    extention = "image/bmp";
+                    break;
+            }
+
+            return extention;
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model BLTC.Web.ViewModels.Items.ItemDetailsViewModel
+<script type="text/javascript" src="~/js/itemavailabilitycontrol.js" async></script>
+<link href="~/css/itemdetailspage.css" rel="stylesheet" />
+<h1 class="text-center mt-2">@this.Model.Name</h1>
+<hr class="bg-primary w-75">
+<div class="row mt-2 mb-4">
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-8">
+            <div class="col-sm-9">
+                <p>
+                    <span><strong>Manufacturer: </strong> <a href="/Manufacturers/Info?manufacturerId=@this.Model.ManufacturerId" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">@this.Model.ManufacturerName</a> </span>
+                </p>
+                <img id="manufacturerLogo" src="/images/logos/@this.Model.ManufacturerLogo.Name" alt="Manufacturer logo" class="card-img-top img-fluid card-image pt-3" />
+                <p>
+                    <span><strong>Weight (grams): </strong>@this.Model.Weight</span>
+                </p>
+                <p>
+                    <span><strong>Pure Gold content (grams): </strong>@this.Model.Purity</span>
+                </p>
+                <p>
+                    <span><strong>Fineness: </strong>@this.Model.Fineness</span>
+                </p>
+                <p>
+                    <span><strong>Dimensions: </strong>@this.Model.Dimensions</span>
+                </p>
+            </div>
+            <a id="buyBtn" href="/Items/AddToCart?itemId=@this.Model.Id" class="btn btn-block btn-success">Buy</a>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4">
+            @foreach (var image in this.Model.Images)
+            {
+                <img src="/images/items/@image.Name" class="card-img-top img-fluid card-image pt-3" />
+            }
+        </div>
+    </div>
+</div>

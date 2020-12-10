@@ -1,5 +1,7 @@
 ﻿namespace BLTC.Web.ViewComponents
 {
+    using System.Threading.Tasks;
+
     using BLTC.Data.Models.Enums;
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.ViewComponents;
@@ -18,7 +20,7 @@
         {
             var viewModel = new ItemShapesViewModel
             {
-                ItemsShapes = this.itemsService.GetKeyValuesOfEnum(typeof(ItemShape)).Result,
+                ItemsShapes = this.itemsService.GetKeyValuesOfEnum(typeof(ItemShape)),
             };
 
             return this.View(viewModel);

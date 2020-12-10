@@ -17,7 +17,7 @@
 
         public async Task<string> GetUserIdByUsername(string username)
         {
-            return await Task.FromResult<string>(this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).FirstOrDefault().Id);
+            return await Task.FromResult(this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).FirstOrDefault().Id);
         }
     }
 }

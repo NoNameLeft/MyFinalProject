@@ -1,0 +1,27 @@
+﻿@model BLTC.Web.ViewModels.Items.AllItemsListViewModel
+@{
+    this.ViewData["Title"] = "All Items";
+}
+<script type="text/javascript" src="~/js/itemavailabilitycontrol.js" async></script>
+<h1 class="text-center mt-2">All Items</h1>
+<hr class="bg-primary w-75">
+<div class="row mt-2 mb-4">
+    @foreach (var item in this.Model.Items)
+    {
+        <div class="col-md-3 col-sm-4 col-xs-6">
+            <img src="/images/items/pamp-gold-five-ounce-back.jpg" class="card-img-top img-fluid card-image pt-3" />
+            <div class="card-body">
+                <h6 class="text-center">
+                    <a href="/Items/Details?itemId=@item.Id"> <small>@item.Name</small> </a>
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span> <small>from</small> @item.Price €</span>
+                        <span id="available" class="badge badge-success">@item.Quantity</span>
+                    </li>
+                </ul>
+                <a id="viewBtn" href="/Items/Details?itemId=@item.Id" class="btn btn-block btn-primary">View</a>
+            </div>
+        </div>
+    }
+</div>
