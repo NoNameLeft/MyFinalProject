@@ -1,9 +1,8 @@
-﻿@model BLTC.Web.ViewModels.Items.AllApprovedItemsListViewModel
+﻿@model BLTC.Web.ViewModels.Administration.Items.ListAllItemsViewModel
 @{
-this.ViewData["Title"] = "All Items";
+    this.ViewData["Title"] = "All Items pending approval";
 }
-<script type="text/javascript" src="~/js/itemavailabilitycontrol.js" async></script>
-<h1 class="text-center mt-2">All Items</h1>
+<h1 class="text-center mt-2">All Items pending approval</h1>
 <hr class="bg-primary w-75">
 <div class="row mt-2 mb-4">
     @foreach (var item in this.Model.Items)
@@ -20,7 +19,8 @@ this.ViewData["Title"] = "All Items";
                         <span id="available" class="badge badge-success">@item.Quantity</span>
                     </li>
                 </ul>
-                <a id="viewBtn" href="/Items/Details?itemId=@item.Id" class="btn btn-block btn-primary">View</a>
+                <a id="viewBtn" class="btn btn-block btn-primary" asp-area="Administration" asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a id="editBtn" class="btn btn-block btn-success" asp-area="Administration" asp-controller="Items" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
             </div>
         </div>
     }

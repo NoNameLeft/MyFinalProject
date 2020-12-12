@@ -11,5 +11,7 @@
         public Task<List<Image>> Add(string addedById, IReadOnlyDictionary<string, string> imagesNameAndExtention, Type type, int typeId);
 
         Task<Image> GetImageById(string imageId);
+
+        Task<IEnumerable<Image>> GetAllImagesByItemId(int itemId);
     }
 }

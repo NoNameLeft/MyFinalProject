@@ -1,0 +1,121 @@
+﻿@model BLTC.Web.ViewModels.Administration.Items.EditItemInputModel
+@{
+    var user = this.User.Identity.Name;
+}
+
+<form enctype="multipart/form-data" class="mx-auto w-50" method="post">
+    <h1 class="text-center mt-2">Add an item</h1>
+    <hr class="bg-primary w-75">
+    <div></div>
+    <div asp-validation-summary="All" class="text-warning"> </div>
+    <input asp-for="Username" type="hidden" value="@user" />
+    <input asp-for="Id" type="hidden" />
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Name" class="h3 mb-2">Name:</label>
+        </div>
+        <input asp-for="Name" class="form-control" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Type" class="h3 mb-2">Select type:</label>
+        </div>
+        <input id="typeId" type="hidden" value="@this.Model.Type" />
+        <vc:item-types></vc:item-types>
+        <span class="text-danger" asp-validation-for="Type"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Shape" class="h3 mb-2">Select shape:</label>
+        </div>
+        <input id="shapeId" type="hidden" value="@this.Model.Shape" />
+        <vc:item-shapes></vc:item-shapes>
+        <span class="text-danger" asp-validation-for="Shape"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Weight" class="h3 mb-2">Weight (grams):</label>
+        </div>
+        <input asp-for="Weight" type="number" min="1" class="form-control" />
+        <span class="text-danger" asp-validation-for="Weight"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Purity" id="puritylabel" class="h3 mb-2"></label>
+        </div>
+        <input asp-for="Purity" type="number" min="0" class="form-control" />
+        <span class="text-danger" asp-validation-for="Purity"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Fineness" class="h3 mb-2">Fineness (carats):</label>
+        </div>
+        <input id="finenessId" type="hidden" value="@this.Model.Fineness" />
+        <vc:carats></vc:carats>
+        <span class="text-danger" asp-validation-for="Fineness"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Quantity" class="h3 mb-2">Quantity:</label>
+        </div>
+        <input asp-for="Quantity" type="number" min="1" class="form-control" />
+        <span class="text-danger" asp-validation-for="Quantity"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Dimensions" class="h3 mb-2">Dimensions:</label>
+        </div>
+        <input asp-for="Dimensions" type="text" class="form-control" />
+        <span class="text-danger" asp-validation-for="Dimensions"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Description" class="h3 mb-2">Description:</label>
+        </div>
+        <textarea asp-for="Description" class="form-control" cols="63" rows="6" placeholder="Write the item's description here..." required></textarea>
+        <span class="text-danger" asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="ManufacturerId" class="h3 mb-2">Select manufacturer:</label>
+        </div>
+        <input id="manufacturerId" type="hidden" value="@this.Model.ManufacturerId" />
+        <vc:manufacturers></vc:manufacturers>
+    </div>
+    <div class="form-group">
+        <div class="text-dark d-flex justify-content-center">
+            <label asp-for="Files" class="h3 mb-2">Select Images:</label>
+        </div>
+        <div class="custom-file">
+            <input asp-for="Files" class="form-control custom-file-input" multiple />
+            <label class="custom-file-label">Choose File...</label>
+        </div>
+    </div>
+    <div class="image-area mt-4">
+        <output class="form-group" id="list">
+            @foreach (var image in this.Model.Images)
+            {
+                <span>
+                    <img id="image" class="img-fluid rounded shadow-sm mx-auto d-block" src="~/images/items/@image.Name" title="@image.Name" asp-append-version="true" />
+                    <button class="btn btn-danger form-group float-right" onclick="deleteImage()">DELETE</button>
+                    <br />
+                </span>
+            }
+        </output>
+    </div>
+    <div id="btns-container" class="d-flex justify-content-around">
+        <button id="addBtn" type="submit" class="btn btn-lg btn-success text-white mb-3">Update</button>
+        <button id="cancelBtn" class="btn btn-lg btn-secondary text-white mb-3" asp-area="Administration" asp-controller="Items" asp-action="All">Cancel</button>
+    </div>
+
+    @section Scripts {
+        <script type="text/javascript" src="~/js/addimagestoitem.js" async asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/adduploadedimagesasfiles.js" async asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/selectedmenuvalues.js" async asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/updatemanufacturer.js" async asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/itemsinputcontrol.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/displayfilename.js" asp-append-version="true"></script>
+        <script type="text/javascript">function deleteImage() { var a = Array.from(document.getElementById("list").children).indexOf(event.target.parentNode); document.querySelector("#list").removeChild(document.querySelectorAll("#list span")[a]); var b = document.getElementById("Files"), c = b.nextElementSibling, d = Array.from(b.files); d.splice(a, 1), b.files = new function (a) { for (var c = new ClipboardEvent("").clipboardData || new DataTransfer, b = 0, d = a.length; b < d; b++)c.items.add(a[b]); return c.files }(d), c.innerHTML = 1 < b.files.length ? b.files.length + " selected files" : 1 == b.files.length ? b.files[0].name : "Choose File..." }</script>
+    }
+</form>

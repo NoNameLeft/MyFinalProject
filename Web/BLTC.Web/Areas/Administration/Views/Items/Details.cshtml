@@ -1,5 +1,4 @@
-﻿@model BLTC.Web.ViewModels.Items.ApprovedItemDetailsViewModel
-@using BLTC.Common;
+﻿@model BLTC.Web.ViewModels.Administration.Items.ItemDetailsViewModel
 <script type="text/javascript" src="~/js/itemavailabilitycontrol.js" async></script>
 <link href="~/css/itemdetailspage.css" rel="stylesheet" />
 <h1 class="text-center mt-2">@this.Model.Name</h1>
@@ -25,12 +24,11 @@
                     <span><strong>Dimensions: </strong>@this.Model.Dimensions</span>
                 </p>
             </div>
-            <a id="buyBtn" href="/Items/AddToCart?itemId=@this.Model.Id" class="btn btn-block btn-success">Buy</a>
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-            {
-                <a id="editBtn" class="btn btn-block btn-primary" asp-area="Administration" asp-controller="Items" asp-action="Edit" asp-route-id="@this.Model.Id">Edit</a>
-                <a id="deleteBtn" class="btn btn-block btn-secondary" asp-area="Administration" asp-controller="Items" asp-action="Delete" asp-route-id="@this.Model.Id">Delete</a>
-            }
+            <div class="buttons-container">
+                <a id="approveBtn" class="btn btn-group-sm btn-primary" asp-area="Administration" asp-controller="Items" asp-action="Approve" asp-route-id="@this.Model.Id">Approve</a>
+                <a id="editBtn" class="btn btn-block btn-success" asp-area="Administration" asp-controller="Items" asp-action="Edit" asp-route-id="@this.Model.Id">Edit</a>
+                <a id="deleteBtn" class="btn btn-group-sm btn-danger" asp-area="Administration" asp-controller="Items" asp-action="Delete" asp-route-id="@this.Model.Id">Delete</a>
+            </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-4">
             @foreach (var image in this.Model.Images)
@@ -40,3 +38,4 @@
         </div>
     </div>
 </div>
+

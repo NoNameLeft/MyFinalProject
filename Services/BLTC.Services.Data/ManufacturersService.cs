@@ -22,7 +22,7 @@
             return await Task.FromResult(this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == name).Id);
         }
 
-        public async Task<Manufacturer> GetManufacturerById(int id)
+        public async Task<Manufacturer> GetById(int id)
         {
             return await Task.FromResult(this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id));
         }
@@ -41,9 +41,14 @@
             return this.manufacturersRepository.All().Where(x => x.Id == id).To<T>();
         }
 
-        public IEnumerable<Item> GetAllProducts(int id)
+        public IEnumerable<Item> GetAllProducts(int productId)
         {
-            return this.manufacturersRepository.All().FirstOrDefault(x => x.Id == id).Products.ToList();
+            return this.manufacturersRepository.All().FirstOrDefault(x => x.Id == productId).Products.ToList();
+        }
+
+        public IEnumerable<Item> GetAllApprovedProducts(int productId)
+        {
+            return this.manufacturersRepository.All().FirstOrDefault(x => x.Id == productId).Products.Where(x => x.IsApproved).ToList();
         }
     }
 }

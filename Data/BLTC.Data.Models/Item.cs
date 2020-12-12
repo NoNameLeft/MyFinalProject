@@ -49,6 +49,8 @@
         [Required]
         public string Description { get; set; }
 
+        public bool IsApproved { get; set; } = false;
+
         public virtual ICollection<Image> Images { get; set; }
 
         public virtual ICollection<OrderItem> Orders { get; set; }
