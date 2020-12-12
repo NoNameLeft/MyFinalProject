@@ -10,15 +10,23 @@
     {
         Task<int> Add(string name, int type, int shape, decimal weight, decimal purity, int fineness, int quantity, string dimensions, string description, int manufacturer);
 
+        Task AddImagesToItem(List<Image> images, int itemId);
+
+        Task Edit(Item item);
+
+        Task Delete(int itemId);
+
         Task<Item> GetItemById(int itemId);
 
         Task<int> GetIdByName(string name);
 
         IEnumerable<T> GetItem<T>(int itemId);
 
-        public IEnumerable<T> GetAllItems<T>();
+        IEnumerable<T> GetAllItems<T>();
 
-        void AddImagesToItem(List<Image> images, int itemId);
+        IEnumerable<T> GetAllPendingItems<T>();
+
+        IEnumerable<T> GetAllApprovedItems<T>();
 
         IEnumerable<KeyValuePair<string, string>> GetKeyValuesOfEnum(Type type);
     }

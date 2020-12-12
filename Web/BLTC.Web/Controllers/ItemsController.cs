@@ -81,18 +81,18 @@
             var itemImages = await this.imagesService.Add(userId, this.Images, item.GetType(), itemId);
 
             // makes relation between newly created images and the item
-            this.itemsService.AddImagesToItem(itemImages, itemId);
+            await this.itemsService.AddImagesToItem(itemImages, itemId);
 
             return this.Redirect("/Items/All"); // decide where to redirect to!!!
         }
 
         public IActionResult All()
         {
-            // gets all items from the db and map them to the view model
-            var items = this.itemsService.GetAllItems<AllItemsViewModel>();
+            // gets all approved by the admin items from the db and map them to the view model
+            var items = this.itemsService.GetAllApprovedItems<AllApprovedItemsViewModel>();
 
             // create new list of all items view model
-            var viewModel = new AllItemsListViewModel { Items = items };
+            var viewModel = new AllApprovedItemsListViewModel { Items = items };
 
             return this.View(viewModel);
         }
@@ -100,16 +100,16 @@
         public async Task<IActionResult> Details(int itemId)
         {
             // gets an item by id and map it to the view model
-            var item = this.itemsService.GetItem<ItemDetailsViewModel>(itemId).FirstOrDefault();
+            var item = this.itemsService.GetItem<ApprovedItemDetailsViewModel>(itemId).FirstOrDefault();
 
             // gets manufacturer id by its name
             var manufacturerId = await this.manufacturersService.GetIdByName(item.ManufacturerName);
 
             // takes manfacturer db enitity by its id
-            var manufacturer = await this.manufacturersService.GetManufacturerById(manufacturerId);
+            var manufacturer = await this.manufacturersService.GetById(manufacturerId);
 
             // create new item details page view model
-            var viewModel = new ItemDetailsViewModel
+            var viewModel = new ApprovedItemDetailsViewModel
             {
                 Id = item.Id,
                 Name = item.Name,
@@ -146,7 +146,7 @@
             {
                 if (this.ExistingFileNames(uploadsFolder).Any(x => x == file.FileName))
                 {
-                    continue;
+                    continue; // it should stop the file from adding!
                 }
 
                 var filePath = Path.Combine(uploadsFolder, file.FileName);

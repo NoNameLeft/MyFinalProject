@@ -22,7 +22,7 @@
         {
             var manufacturer = this.manufacturersService.GetManufacturer<ManufacturersInfoViewModel>(manufacturerId).FirstOrDefault();
             var country = await this.countriesService.GetCountryById(manufacturer.CountryId);
-            var products = this.manufacturersService.GetAllProducts(manufacturerId);
+            var products = this.manufacturersService.GetAllApprovedProducts(manufacturerId);
 
             var viewModel = new ManufacturersInfoViewModel
             {

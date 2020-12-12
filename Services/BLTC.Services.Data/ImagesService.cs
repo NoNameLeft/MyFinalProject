@@ -43,6 +43,11 @@
             return await Task.FromResult(this.imagesRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == imageId));
         }
 
+        public async Task<IEnumerable<Image>> GetAllImagesByItemId(int itemId)
+        {
+            return await Task.FromResult(this.imagesRepository.AllAsNoTracking().Where(x => x.ItemId == itemId).ToList());
+        }
+
         private void GetPropertyAndAssingValue(Type type, Image image, int typeId)
         {
             // validate if such property exist

@@ -1,5 +1,5 @@
 ﻿(() => {
-    document.getElementById('addBtn').addEventListener('mouseenter', function () {
+    document.getElementById('btns-container').addEventListener('mouseenter', function () {
         var currentFiles = document.getElementById('Files');
         var images = document.querySelectorAll('#image');
 

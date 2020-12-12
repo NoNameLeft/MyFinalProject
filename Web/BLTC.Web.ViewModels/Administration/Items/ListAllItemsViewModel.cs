@@ -1,8 +1,8 @@
-﻿namespace BLTC.Web.ViewModels.Items
+﻿namespace BLTC.Web.ViewModels.Administration.Items
 {
     using System.Collections.Generic;
 
-    public class AllItemsListViewModel
+    public class ListAllItemsViewModel
     {
         public IEnumerable<AllItemsViewModel> Items { get; set; }
     }

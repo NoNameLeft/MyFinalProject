@@ -47,7 +47,21 @@
             return item.Id;
         }
 
-        public async void AddImagesToItem(List<Image> images, int itemId)
+        public async Task Edit(Item editedItem)
+        {
+            this.itemsRepository.Update(editedItem);
+            await this.itemsRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(int itemId)
+        {
+            var item = this.itemsRepository.All().Where(x => x.Id == itemId).FirstOrDefault();
+
+            this.itemsRepository.Delete(item);
+            await this.itemsRepository.SaveChangesAsync();
+        }
+
+        public async Task AddImagesToItem(List<Image> images, int itemId)
         {
             var item = await this.GetItemById(itemId);
             images.ForEach(i => item.Images.Add(i));
@@ -60,12 +74,22 @@
 
         public Task<Item> GetItemById(int itemId)
         {
-            return Task.FromResult(this.itemsRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == itemId));
+            return Task.FromResult(this.itemsRepository.All().FirstOrDefault(x => x.Id == itemId));
         }
 
         public IEnumerable<T> GetAllItems<T>()
         {
             return this.itemsRepository.All().To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllPendingItems<T>()
+        {
+            return this.itemsRepository.All().Where(x => !x.IsApproved).To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllApprovedItems<T>()
+        {
+            return this.itemsRepository.All().Where(x => x.IsApproved).To<T>().ToList();
         }
 
         public IEnumerable<T> GetItem<T>(int itemId)
