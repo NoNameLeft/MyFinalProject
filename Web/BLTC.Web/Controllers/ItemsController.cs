@@ -46,7 +46,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddItemlnputModel input)
+        public async Task<IActionResult> Add(ItemAddInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -71,7 +71,7 @@
                     input.Quantity,
                     input.Dimensions,
                     input.Description,
-                    input.Manufacturer);
+                    input.ManufacturerId);
 
             // make user there is no two items with the same name
             // get the actual Item (db enitity) with the Id
@@ -83,16 +83,16 @@
             // makes relation between newly created images and the item
             await this.itemsService.AddImagesToItem(itemImages, itemId);
 
-            return this.Redirect("/Items/All"); // decide where to redirect to!!!
+            return this.RedirectToAction("Details", new { itemId = item.Id, Area = "Administration" });
         }
 
         public IActionResult All()
         {
             // gets all approved by the admin items from the db and map them to the view model
-            var items = this.itemsService.GetAllApprovedItems<AllApprovedItemsViewModel>();
+            var approvedItems = this.itemsService.GetAllApprovedItems<ItemsAllViewModel>();
 
             // create new list of all items view model
-            var viewModel = new AllApprovedItemsListViewModel { Items = items };
+            var viewModel = new ItemsAllListViewModel<ItemsAllViewModel> { Items = approvedItems };
 
             return this.View(viewModel);
         }
@@ -100,7 +100,7 @@
         public async Task<IActionResult> Details(int itemId)
         {
             // gets an item by id and map it to the view model
-            var item = this.itemsService.GetItem<ApprovedItemDetailsViewModel>(itemId).FirstOrDefault();
+            var item = this.itemsService.GetItem<ItemDetailsViewModel>(itemId).SingleOrDefault();
 
             // gets manufacturer id by its name
             var manufacturerId = await this.manufacturersService.GetIdByName(item.ManufacturerName);
@@ -109,7 +109,7 @@
             var manufacturer = await this.manufacturersService.GetById(manufacturerId);
 
             // create new item details page view model
-            var viewModel = new ApprovedItemDetailsViewModel
+            var viewModel = new ItemDetailsViewModel
             {
                 Id = item.Id,
                 Name = item.Name,

@@ -8,7 +8,7 @@
 
     using BLTC.Data.Models.Enums;
     using BLTC.Services.Data;
-    using BLTC.Web.ViewModels.Administration.Items;
+    using BLTC.Web.ViewModels.Items;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -39,17 +39,17 @@
         public IActionResult All()
         {
             // gets all approved by the admin items from the db and map them to the view model
-            var items = this.itemsService.GetAllPendingItems<AllItemsViewModel>();
+            var pendingItems = this.itemsService.GetAllPendingItems<ItemsAllViewModel>();
 
             // create new list of all items view model
-            var viewModel = new ListAllItemsViewModel { Items = items };
+            var viewModel = new ItemsAllListViewModel<ItemsAllViewModel> { Items = pendingItems };
 
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int itemId)
         {
-            var item = this.itemsService.GetItem<ItemDetailsViewModel>(id).FirstOrDefault();
+            var item = this.itemsService.GetItem<ItemDetailsViewModel>(itemId).SingleOrDefault();
             var manufacturerId = await this.manufacturersService.GetIdByName(item.ManufacturerName);
             var manufacturer = await this.manufacturersService.GetById(manufacturerId);
 
@@ -63,6 +63,7 @@
                 Weight = item.Weight,
                 Purity = item.Purity,
                 Fineness = (int)item.Fineness,
+                Quantity = item.Quantity,
                 Dimensions = item.Dimensions,
                 Description = item.Description,
                 Images = item.Images,
@@ -71,21 +72,31 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Approve(int id)
+        public async Task<IActionResult> Approve(int itemId)
         {
-            var item = await this.itemsService.GetItemById(id);
+            var item = await this.itemsService.GetItemById(itemId);
             item.IsApproved = true;
             await this.itemsService.Edit(item);
 
-            return this.Redirect("/Items/All");
+            return this.RedirectToAction("All");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Disprove(int itemId)
         {
-            var item = this.itemsService.GetItem<EditItemInputModel>(id).FirstOrDefault();
+            var item = await this.itemsService.GetItemById(itemId);
+            item.IsApproved = false;
+            await this.itemsService.Edit(item);
 
-            var viewModel = new EditItemInputModel
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult Edit(int itemId)
+        {
+            var item = this.itemsService.GetItem<ItemEditInputModel>(itemId).SingleOrDefault();
+
+            var viewModel = new ItemEditInputModel
             {
+                ItemId = item.ItemId,
                 Name = item.Name,
                 Type = item.Type,
                 Shape = item.Shape,
@@ -103,7 +114,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditItemInputModel input)
+        public async Task<IActionResult> Edit(ItemEditInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -112,7 +123,7 @@
 
             this.AddFilesToFolder(input.Files); // adds files to the images folder
             var userId = await this.usersService.GetUserIdByUsername(input.Username); // finds the current admin
-            var item = await this.itemsService.GetItemById(input.Id); // gets the item by its identity
+            var item = await this.itemsService.GetItemById(input.ItemId); // gets the item by its identity
             var itemImages = await this.imagesService.Add(userId, this.Images, item.GetType(), item.Id); // adds the files as images in the db
 
             // change the item's values
@@ -129,14 +140,14 @@
             await this.itemsService.Edit(item); // update item in the db
             await this.itemsService.AddImagesToItem(itemImages, item.Id); // adds the newly created images to the current item
 
-            return this.Redirect("/Administration/Items/All");
+            return this.RedirectToAction("Details", new { itemId = item.Id });
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int itemId)
         {
-            await this.itemsService.Delete(id);
+            await this.itemsService.Delete(itemId);
 
-            return this.Redirect("/Administration/Items/All");
+            return this.RedirectToAction("All");
         }
 
         private void AddFilesToFolder(IFormFileCollection files)

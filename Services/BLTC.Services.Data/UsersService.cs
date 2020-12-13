@@ -1,23 +1,30 @@
 ﻿namespace BLTC.Services.Data
 {
-    using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using BLTC.Data.Common.Repositories;
     using BLTC.Data.Models;
+    using Microsoft.AspNetCore.Identity;
 
     public class UsersService : IUsersService
     {
-        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly UserManager<ApplicationUser> usersManager;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public UsersService(UserManager<ApplicationUser> usersManger)
         {
-            this.usersRepository = usersRepository;
+            this.usersManager = usersManger;
         }
 
         public async Task<string> GetUserIdByUsername(string username)
         {
-            return await Task.FromResult(this.usersRepository.AllAsNoTracking().Where(x => x.UserName == username).FirstOrDefault().Id);
+            var user = await this.usersManager.FindByNameAsync(username);
+
+            return user.Id;
+        }
+
+        private string GetUserId(ClaimsPrincipal principal)
+        {
+            return principal.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
         }
     }
 }
