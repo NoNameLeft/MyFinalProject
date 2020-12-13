@@ -4,4 +4,4 @@
     var manufacturers = this.Model.Manufacturers.Select(x => new SelectListItem(x.Key, x.Value));
 }
 
-@Html.DropDownList("Manufacturer", manufacturers, new { @class = "custom-select" })
+@Html.DropDownList("ManufacturerId", manufacturers, new { @class = "custom-select" })

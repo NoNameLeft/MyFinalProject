@@ -1,42 +1,53 @@
-﻿@model BLTC.Web.ViewModels.Items.ApprovedItemDetailsViewModel
+﻿@model BLTC.Web.ViewModels.Items.ItemDetailsViewModel
+
 @using BLTC.Common;
-<script type="text/javascript" src="~/js/itemavailabilitycontrol.js" async></script>
-<link href="~/css/itemdetailspage.css" rel="stylesheet" />
-<h1 class="text-center mt-2">@this.Model.Name</h1>
-<hr class="bg-primary w-75">
-<div class="row mt-2 mb-4">
-    <div class="row">
-        <div class="col-lg-5 col-md-5 col-sm-8">
-            <div class="col-sm-9">
-                <p>
-                    <span><strong>Manufacturer: </strong> <a href="/Manufacturers/Info?manufacturerId=@this.Model.ManufacturerId" class="btn btn-outline-info btn-sm" role="button" aria-pressed="true">@this.Model.ManufacturerName</a> </span>
-                </p>
-                <img id="manufacturerLogo" src="/images/logos/@this.Model.ManufacturerLogo.Name" alt="Manufacturer logo" class="card-img-top img-fluid card-image pt-3" asp-append-version="true" />
-                <p>
-                    <span><strong>Weight (grams): </strong>@this.Model.Weight</span>
-                </p>
-                <p>
-                    <span><strong>Pure Gold content (grams): </strong>@this.Model.Purity</span>
-                </p>
-                <p>
-                    <span><strong>Fineness: </strong>@this.Model.Fineness</span>
-                </p>
-                <p>
-                    <span><strong>Dimensions: </strong>@this.Model.Dimensions</span>
-                </p>
+
+<div>
+    <header>
+        <h1 class="text-center mt-2">@this.Model.Name</h1>
+        <hr class="bg-primary w-75">
+        <link href="~/css/itemsdetailspage.css" rel="stylesheet" asp-append-version="true" />
+    </header>
+    <div id="outOfStockAlert" class="alert alert-danger" role="alert"></div>
+    <div class="row mt-2 mb-4">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-4">
+                @foreach (var image in this.Model.Images)
+                {
+                    <img src="/images/items/@image.Name" class="img-fluid" asp-append-version="true" />
+                }
             </div>
-            <a id="buyBtn" href="/Items/AddToCart?itemId=@this.Model.Id" class="btn btn-block btn-success">Buy</a>
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-            {
-                <a id="editBtn" class="btn btn-block btn-primary" asp-area="Administration" asp-controller="Items" asp-action="Edit" asp-route-id="@this.Model.Id">Edit</a>
-                <a id="deleteBtn" class="btn btn-block btn-secondary" asp-area="Administration" asp-controller="Items" asp-action="Delete" asp-route-id="@this.Model.Id">Delete</a>
-            }
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-4">
-            @foreach (var image in this.Model.Images)
-            {
-                <img src="/images/items/@image.Name" class="card-img-top img-fluid card-image pt-3" asp-append-version="true" />
-            }
+            <div class="col-lg-5 col-md-5 col-sm-8">
+                <div class="col-sm-9">
+                    <input id="available" type="hidden" value="@this.Model.Quantity" />
+                    <p>
+                        <span><strong>Manufacturer: </strong> <a asp-area="" asp-controller="Manufacturers" asp-action="Info" asp-route-manufacturerId="@this.Model.ManufacturerId" class="btn btn-outline-info btn-lg">@this.Model.ManufacturerName</a> </span>
+                    </p>
+                    <img id="manufacturerLogo" src="/images/logos/@this.Model.ManufacturerLogo.Name" alt="Manufacturer logo" class="card-img-top img-fluid card-image pt-3" asp-append-version="true" />
+                    <p>
+                        <span><strong>Weight (grams): </strong>@this.Model.Weight</span>
+                    </p>
+                    <p>
+                        <span><strong>Pure Gold content (grams): </strong>@this.Model.Purity</span>
+                    </p>
+                    <p>
+                        <span><strong>Fineness: </strong>@this.Model.Fineness</span>
+                    </p>
+                    <p>
+                        <span><strong>Dimensions: </strong>@this.Model.Dimensions</span>
+                    </p>
+                </div>
+                <a id="buyBtn" href="/Items/AddToCart?itemId=@this.Model.Id" class="btn btn-block btn-success">Buy</a>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a id="editBtn" class="btn btn-block btn-danger" asp-area="Administration" asp-controller="Items" asp-action="Disprove" asp-route-itemId="@this.Model.Id">Refute</a>
+                }
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/buybtncontrol.js" asp-append-version="true" async></script>
+    <script src="~/js/imagesmagnifier.js" asp-append-version="true" async></script>
+}

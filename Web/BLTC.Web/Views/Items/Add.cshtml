@@ -1,9 +1,11 @@
-﻿@model BLTC.Web.ViewModels.Items.AddItemlnputModel
+﻿@model BLTC.Web.ViewModels.Items.ItemAddInputModel
+
 @{
     this.ViewData["Title"] = "Add an item";
     var user = this.User.Identity.Name;
 }
-<body class="container-fluid">
+
+<div>
     <form enctype="multipart/form-data" class="mx-auto w-50" method="post">
         <h1 class="text-center mt-2">Add an item</h1>
         <hr class="bg-primary w-75">
@@ -75,7 +77,7 @@
         </div>
         <div class="form-group">
             <div class="text-dark d-flex justify-content-center">
-                <label asp-for="Manufacturer" class="h3 mb-2">Select manufacturer:</label>
+                <label asp-for="ManufacturerId" class="h3 mb-2">Select manufacturer:</label>
             </div>
             <vc:manufacturers></vc:manufacturers>
         </div>
@@ -96,12 +98,12 @@
             <button id="addBtn" type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
         </div>
     </form>
+</div>
 
-    @section Scripts {
-        <script type="text/javascript" src="~/js/addimagestoitem.js" async asp-append-version="true"></script>
-        <script type="text/javascript" src="~/js/itemsinputcontrol.js" async asp-append-version="true"></script>
-        <script type="text/javascript" src="~/js/displayfilename.js" async asp-append-version="true"></script>
-        <script type="text/javascript" src="~/js/adduploadedimagesasfiles.js" async asp-append-version="true"></script>
-        <script type="text/javascript" async>function deleteImage() { var a = Array.from(document.getElementById("list").children).indexOf(event.target.parentNode); document.querySelector("#list").removeChild(document.querySelectorAll("#list span")[a]); var b = document.getElementById("Files"), c = b.nextElementSibling, d = Array.from(b.files); d.splice(a, 1), b.files = new function (a) { for (var c = new ClipboardEvent("").clipboardData || new DataTransfer, b = 0, d = a.length; b < d; b++)c.items.add(a[b]); return c.files }(d), c.innerHTML = 1 < b.files.length ? b.files.length + " selected files" : 1 == b.files.length ? b.files[0].name : "Choose File..." }</script>
-    }
-</body>
+@section Scripts {
+    <script src="~/js/addimagestoitem.js" async asp-append-version="true"></script>
+    <script src="~/js/itemsinputcontrol.js" async asp-append-version="true"></script>
+    <script src="~/js/displayfilename.js" async asp-append-version="true"></script>
+    <script src="~/js/adduploadedimagesasfiles.js" async asp-append-version="true"></script>
+    <script>function deleteImage() { var a = Array.from(document.getElementById("list").children).indexOf(event.target.parentNode); document.querySelector("#list").removeChild(document.querySelectorAll("#list span")[a]); var b = document.getElementById("Files"), c = b.nextElementSibling, d = Array.from(b.files); d.splice(a, 1), b.files = new function (a) { for (var c = new ClipboardEvent("").clipboardData || new DataTransfer, b = 0, d = a.length; b < d; b++)c.items.add(a[b]); return c.files }(d), c.innerHTML = 1 < b.files.length ? b.files.length + " selected files" : 1 == b.files.length ? b.files[0].name : "Choose File..." }</script>
+}

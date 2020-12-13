@@ -1,10 +1,9 @@
 ﻿@model BLTC.Web.ViewModels.Manufacturers.ManufacturersInfoViewModel
-<link href="~/css/manufacturersinfopage.css" asp-append-version="true" rel="stylesheet" />
-<script type="text/javascript" src="~/js/imagesmagnifier.js" async asp-append-version="true"></script>
+
 <div class="about-section">
     <h1>Who are we?</h1>
     <h4>@this.Model.Name <small>Refinery</small></h4>
-    <img src="/images/logos/@this.Model.Logo.Name" alt="Company logo" />
+    <img src="/images/logos/@this.Model.Logo.Name" alt="Company logo" asp-append-version="true" />
     <p>Contry of origin: @this.Model.Country</p>
     <p>@this.Model.Overview</p>
 </div>
@@ -14,16 +13,21 @@
     {
         <div class="column">
             <div class="card">
-                <img id="productImg" src="~/images/items/pamp-gold-five-ounce-front.jpg" alt="Product image" class="img-fluid">
+                <img id="productImg" src="~/images/items/pamp-gold-five-ounce-front.jpg" alt="Product image" class="img-fluid" asp-append-version="true">
                 <div class="card-contrainer">
                     <h6>@product.Name</h6>
                     <p class="type">@product.Type</p>
                     <p>@product.Description</p>
                     <p><small>from: </small>@product.Price  €</p>
-                    <p><a id="viewBtn" href="/Items/Details?itemId=@product.Id" class="button-view">View</a></p>
+                    <p><a id="viewBtn" class="button-view" asp-controller="Items" asp-action="Details" asp-route-itemId="@product.Id">View</a></p>
                 </div>
             </div>
         </div>
     }
 </div>
+
+@section Scripts {
+    <script src="~/js/imagesmagnifier.js" asp-append-version="true" async></script>
+    <script src="~/js/viewbtncolorchanger.js" asp-append-version="true" async></script>
+}
 
