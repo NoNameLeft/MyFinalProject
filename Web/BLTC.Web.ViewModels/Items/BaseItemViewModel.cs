@@ -1,7 +1,6 @@
 ﻿namespace BLTC.Web.ViewModels.Items
 {
     using System.Collections.Generic;
-    using System.ComponentModel;
 
     using BLTC.Data.Models;
 
@@ -11,6 +10,7 @@
         private string manufacturerName;
         private Image manufacturerLogo;
         private decimal price;
+        private bool isApproved;
         private ICollection<Image> images;
 
         public BaseItemViewModel()
@@ -44,6 +44,12 @@
         {
             get { return this.price; }
             set { this.SetProperty(ref this.price, value); }
+        }
+
+        public bool IsApproved
+        {
+            get { return this.isApproved; }
+            set { this.SetProperty(ref this.isApproved, value); }
         }
 
         public ICollection<Image> Images

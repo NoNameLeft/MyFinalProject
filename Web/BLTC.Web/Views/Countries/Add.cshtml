@@ -1,0 +1,31 @@
+﻿@model  BLTC.Web.ViewModels.Countries.CountryAddInputModel
+
+@using BLTC.Common
+
+<div>
+    <form enctype="multipart/form-data" class="mx-auto w-50" method="post">
+        <h1 class="text-center mt-2">Add a country</h1>
+        <hr class="bg-primary w-75">
+        <div asp-validation-summary="All" class="text-warning"> </div>
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <div class="form-group">
+                <div class="text-dark d-flex justify-content-center">
+                    <label asp-for="Name" class="h3 mb-2">Name:</label>
+                </div>
+                <input asp-for="Name" class="form-control" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="form-group">
+                <div class="text-dark d-flex justify-content-center">
+                    <label asp-for="IsoCode" class="h3 mb-2">ISO Code:</label>
+                </div>
+                <input asp-for="IsoCode" class="form-control" />
+                <span class="text-danger" asp-validation-for="IsoCode"></span>
+            </div>
+            <div id="btns-container" class="d-flex justify-content-center">
+                <button id="addBtn" type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
+            </div>
+        }
+    </form>
+</div>

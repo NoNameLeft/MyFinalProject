@@ -1,7 +1,6 @@
-﻿@model BLTC.Web.ViewModels.Items.ItemAddInputModel
+﻿@model BLTC.Web.ViewModels.Items.ItemEditInputModel
 
 @{
-    this.ViewData["Title"] = "Add an item";
     var user = this.User.Identity.Name;
 }
 
@@ -12,19 +11,13 @@
     </header>
     <form enctype="multipart/form-data" class="mx-auto w-50" method="post">
         <partial name="_ItemInputPartial" />
-        <div class="image-area mt-4">
-            <output class="form-group" id="list"></output>
-        </div>
-        <div id="btns-container" class="d-flex justify-content-center">
-            <button id="addBtn" type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
-        </div>
+        <partial name="_ItemEditPartial" />
     </form>
 </div>
 
 @section Scripts {
-    <script src="~/js/addimagestoitem.js" async asp-append-version="true"></script>
-    <script src="~/js/itemsinputcontrol.js" async asp-append-version="true"></script>
-    <script src="~/js/displayfilename.js" async asp-append-version="true"></script>
-    <script src="~/js/adduploadedimagesasfiles.js" async asp-append-version="true"></script>
+    <script src="~/js/addimagestoitem.js" asp-append-version="true" async></script>
+    <script src="~/js/adduploadedimagesasfiles.js" asp-append-version="true" async></script>
+    <script src="~/js/selectedmenuvalues.js" asp-append-version="true" async></script>
     <script>function deleteImage() { var a = Array.from(document.getElementById("list").children).indexOf(event.target.parentNode); document.querySelector("#list").removeChild(document.querySelectorAll("#list span")[a]); var b = document.getElementById("Files"), c = b.nextElementSibling, d = Array.from(b.files); d.splice(a, 1), b.files = new function (a) { for (var c = new ClipboardEvent("").clipboardData || new DataTransfer, b = 0, d = a.length; b < d; b++)c.items.add(a[b]); return c.files }(d), c.innerHTML = 1 < b.files.length ? b.files.length + " selected files" : 1 == b.files.length ? b.files[0].name : "Choose File..." }</script>
 }
