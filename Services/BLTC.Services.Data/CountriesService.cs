@@ -15,9 +15,26 @@
             this.countriesRepository = countriesRepository;
         }
 
+        public async Task Add(string name, string isoCode)
+        {
+            var country = new Country
+            {
+                Name = name,
+                IsoCode = isoCode,
+            };
+
+            await this.countriesRepository.AddAsync(country);
+            await this.countriesRepository.SaveChangesAsync();
+        }
+
         public async Task<Country> GetCountryById(int countryId)
         {
             return await Task.FromResult(this.countriesRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == countryId));
+        }
+
+        public bool CheckIfEntityExistsByIsoCode(string isoCode)
+        {
+            return this.countriesRepository.AllAsNoTrackingWithDeleted().Any(x => x.IsoCode == isoCode);
         }
     }
 }

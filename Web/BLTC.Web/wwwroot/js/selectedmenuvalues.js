@@ -8,7 +8,7 @@
         changeFineness(finenessId.value);
         document.getElementById('Type').options[type.value].selected = true;
         document.getElementById('Shape').options[shape.value].selected = true;
-        document.getElementById('Manufacturer').options[manufacturer.value - 1].selected = true;
+        document.getElementById('ManufacturerId').options[manufacturer.value - 1].selected = true;
     }
 
     function changeFineness(value) {

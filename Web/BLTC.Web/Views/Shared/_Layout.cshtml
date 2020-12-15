@@ -21,13 +21,26 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
+                            <div class="dropdown">
+                                <a id="dropdownBtn" class="dropbtn nav-link text-dark">Items</a>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <input type="text" placeholder="Search.." id="myInput">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">All Items</a>
+                                    <a class="nav-link text-dark" href="#">Gold</a>
+                                    <a class="nav-link text-dark" href="#">Silver</a>
+                                    <a class="nav-link text-dark" href="#">Palladium</a>
+                                    <a class="nav-link text-dark" href="#">Platinum</a>
+                                    <a class="nav-link text-dark" href="#">Banknotes</a>
+                                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                     {
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Add">Add</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Pending">Pending Approval</a>
+                                     }
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Add">Add Item</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">All Items</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -56,6 +69,8 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/itemsdropdown.js" asp-append-version="true"></script>
+    <script>var AppGlobal={user:{name:"@(this.User.Identity.Name)",role:"@(this.User.IsInRole(GlobalConstants.AdministratorRoleName))"}};</script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -7,7 +7,7 @@
     using BLTC.Data.Models;
     using BLTC.Services.Mapping;
 
-    public class ItemEditInputModel : BaseItemInputModel, IMapFrom<Item>, IHaveCustomMappings
+    public class ItemEditInputModel : ItemAddInputModel, IMapFrom<Item>, IHaveCustomMappings
     {
         private int itemId;
         private ICollection<Image> images;

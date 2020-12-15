@@ -6,8 +6,11 @@
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
 
+    using BLTC.Common;
+    using BLTC.Data.Models.Enums;
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.Items;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -46,12 +49,18 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Add(ItemAddInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
+
+            // else if (await this.itemsService.GetIdByName(input.Name) <= 0)
+            // {
+            //     return this.StatusCode(409, $"Item with name '{input.Name}' already exists.");
+            // }
 
             // check if you are register user (will add authonetication later)
             var userId = this.usersService.GetUserIdByUsername(input.Username).Result;
@@ -83,7 +92,62 @@
             // makes relation between newly created images and the item
             await this.itemsService.AddImagesToItem(itemImages, itemId);
 
-            return this.RedirectToAction("Details", new { itemId = item.Id, Area = "Administration" });
+            return this.RedirectToAction("Details", new { itemId = item.Id });
+        }
+
+        [Authorize]
+        public IActionResult Edit(int itemId)
+        {
+            var item = this.itemsService.GetItem<ItemEditInputModel>(itemId).SingleOrDefault();
+
+            var viewModel = new ItemEditInputModel
+            {
+                ItemId = item.ItemId,
+                Name = item.Name,
+                Type = item.Type,
+                Shape = item.Shape,
+                Weight = item.Weight,
+                Purity = item.Purity,
+                Fineness = item.Fineness,
+                Quantity = item.Quantity,
+                Dimensions = item.Dimensions,
+                Description = item.Description,
+                ManufacturerId = item.ManufacturerId,
+                Images = item.Images,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Edit(ItemEditInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            this.AddFilesToFolder(input.Files); // adds files to the images folder
+            var userId = await this.usersService.GetUserIdByUsername(input.Username); // finds the current admin
+            var item = await this.itemsService.GetItemById(input.ItemId); // gets the item by its identity
+            var itemImages = await this.imagesService.Add(userId, this.Images, item.GetType(), item.Id); // adds the files as images in the db
+
+            // change the item's values
+            item.Name = input.Name;
+            item.Type = (ItemType)input.Type;
+            item.Shape = (ItemShape)input.Shape;
+            item.Weight = input.Weight;
+            item.Purity = input.Purity;
+            item.Quantity = input.Quantity;
+            item.Dimensions = input.Dimensions;
+            item.Description = input.Description;
+            item.ManufacturerId = input.ManufacturerId;
+
+            await this.itemsService.Edit(item); // update item in the db
+            await this.itemsService.AddImagesToItem(itemImages, item.Id); // adds the newly created images to the current item
+
+            return this.RedirectToAction("Details", new { itemId = item.Id });
         }
 
         public IActionResult All()
@@ -93,6 +157,15 @@
 
             // create new list of all items view model
             var viewModel = new ItemsAllListViewModel<ItemsAllViewModel> { Items = approvedItems };
+
+            return this.View(viewModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Pending()
+        {
+            var pendingItems = this.itemsService.GetAllPendingItems<ItemsAllViewModel>();
+            var viewModel = new ItemsAllListViewModel<ItemsAllViewModel> { Items = pendingItems };
 
             return this.View(viewModel);
         }
@@ -119,12 +192,42 @@
                 Weight = item.Weight,
                 Purity = item.Purity,
                 Fineness = (int)item.Fineness,
+                Quantity = item.Quantity,
                 Dimensions = item.Dimensions,
                 Description = item.Description,
+                IsApproved = item.IsApproved,
                 Images = item.Images,
             };
 
             return this.View(viewModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Approve(int itemId)
+        {
+            var item = await this.itemsService.GetItemById(itemId);
+            item.IsApproved = true;
+            await this.itemsService.Edit(item);
+
+            return this.RedirectToAction("All");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Disprove(int itemId)
+        {
+            var item = await this.itemsService.GetItemById(itemId);
+            item.IsApproved = false;
+            await this.itemsService.Edit(item);
+
+            return this.RedirectToAction("All");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Delete(int itemId)
+        {
+            await this.itemsService.Delete(itemId);
+
+            return this.RedirectToAction("All");
         }
 
         private void AddFilesToDict(IDictionary<string, string> dict, string fileName)
