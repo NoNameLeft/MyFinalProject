@@ -5,28 +5,34 @@
     using System.Threading.Tasks;
 
     using BLTC.Data.Models;
+    using BLTC.Services.Data.Models;
+    using Microsoft.AspNetCore.Http;
 
     public interface IItemsService
     {
-        Task<int> Add(string name, int type, int shape, decimal weight, decimal purity, int fineness, int quantity, string dimensions, string description, int manufacturer);
+        Task CreateAsync(CreateItemDto dto, string userId, IFormFileCollection images, string imagePath);
 
-        Task AddImagesToItem(List<Image> images, int itemId);
+        Task UpdateAsync(UpdateItemDto dto, string userId, string imagePath);
 
-        Task Edit(Item item);
+        Task DeleteAsync(int id);
 
-        Task Delete(int itemId);
+        Task ChangeStatus(int id);
 
-        Task<Item> GetItemById(int itemId);
+        void AddImagesToItem(List<Image> images, int id);
 
-        Task<int> GetIdByName(string name);
-
-        IEnumerable<T> GetItem<T>(int itemId);
+        T GetItemById<T>(int id);
 
         IEnumerable<T> GetAllItems<T>();
 
         IEnumerable<T> GetAllPendingItems<T>();
 
         IEnumerable<T> GetAllApprovedItems<T>();
+
+        IEnumerable<T> GetItemsByFilter<T>(string type);
+
+        IEnumerable<T> GetItemsByFilter<T>(string shape, string type);
+
+        IEnumerable<T> GetItemsByFilter<T>(string type, string shape, decimal? weight);
 
         IEnumerable<KeyValuePair<string, string>> GetKeyValuesOfEnum(Type type);
     }

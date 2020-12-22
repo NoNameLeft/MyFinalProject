@@ -11,16 +11,9 @@
         private Image manufacturerLogo;
         private decimal price;
         private bool isApproved;
+        private string shape;
+        private string type;
         private ICollection<Image> images;
-
-        public BaseItemViewModel()
-        {
-            this.Id = this.id;
-            this.ManufacturerName = this.manufacturerName;
-            this.ManufacturerLogo = this.manufacturerLogo;
-            this.Price = this.price;
-            this.Images = this.images;
-        }
 
         public int Id
         {
@@ -50,6 +43,18 @@
         {
             get { return this.isApproved; }
             set { this.SetProperty(ref this.isApproved, value); }
+        }
+
+        public new string Shape
+        {
+            get { return this.shape; }
+            set { this.SetProperty(ref this.shape, value); }
+        }
+
+        public new string Type
+        {
+            get { return this.type; }
+            set { this.SetProperty(ref this.type, value); }
         }
 
         public ICollection<Image> Images

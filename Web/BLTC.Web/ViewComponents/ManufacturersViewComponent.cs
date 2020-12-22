@@ -1,7 +1,5 @@
 ﻿namespace BLTC.Web.ViewComponents
 {
-    using System.Threading.Tasks;
-
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.ViewComponents;
     using Microsoft.AspNetCore.Mvc;
@@ -17,11 +15,7 @@
 
         public IViewComponentResult Invoke()
         {
-            var viewModel = new ManufacturersViewModel
-            {
-                Manufacturers = this.manufacturersService.GetAllAsKeyValuePairs(),
-            };
-
+            var viewModel = new EnumsViewModel { KeyValuePairs = this.manufacturersService.GetAllAsKeyValuePairs() };
             return this.View(viewModel);
         }
     }

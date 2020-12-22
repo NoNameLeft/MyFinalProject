@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using BLTC.Data.Common.Repositories;
     using BLTC.Data.Models;
@@ -17,14 +16,24 @@
             this.manufacturersRepository = manufacturersRepository;
         }
 
-        public async Task<int> GetIdByName(string name)
+        public T GetById<T>(int id)
         {
-            return await Task.FromResult(this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Name == name).Id);
+            return this.manufacturersRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>().SingleOrDefault();
         }
 
-        public async Task<Manufacturer> GetById(int id)
+        public T GetByName<T>(string name)
         {
-            return await Task.FromResult(this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == id));
+            return this.manufacturersRepository.AllAsNoTracking().Where(x => x.Name == name).To<T>().SingleOrDefault();
+        }
+
+        public IEnumerable<T> GetManufacturer<T>(int id)
+        {
+            return this.manufacturersRepository.AllAsNoTracking().Where(x => x.Id == id).To<T>();
+        }
+
+        public IEnumerable<Item> GetAllApprovedProducts(int productId)
+        {
+            return this.manufacturersRepository.AllAsNoTracking().FirstOrDefault(x => x.Id == productId).Products.Where(x => x.IsApproved).AsEnumerable();
         }
 
         public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
@@ -33,22 +42,7 @@
             {
                 x.Name,
                 x.Id,
-            }).ToList().Select(x => new KeyValuePair<string, string>(x.Name, x.Id.ToString()));
-        }
-
-        public IEnumerable<T> GetManufacturer<T>(int id)
-        {
-            return this.manufacturersRepository.All().Where(x => x.Id == id).To<T>();
-        }
-
-        public IEnumerable<Item> GetAllProducts(int productId)
-        {
-            return this.manufacturersRepository.All().FirstOrDefault(x => x.Id == productId).Products.ToList();
-        }
-
-        public IEnumerable<Item> GetAllApprovedProducts(int productId)
-        {
-            return this.manufacturersRepository.All().FirstOrDefault(x => x.Id == productId).Products.Where(x => x.IsApproved).ToList();
+            }).ToList().Select(x => new KeyValuePair<string, string>(x.Name, x.Id.ToString())).AsEnumerable();
         }
     }
 }

@@ -4,6 +4,6 @@
 
     public interface IUsersService
     {
-        Task<string> GetUserIdByUsername(string username);
+        Task<string> GetIdAsync(string username);
     }
 }

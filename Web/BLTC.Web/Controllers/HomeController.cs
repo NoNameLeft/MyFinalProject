@@ -1,28 +1,36 @@
 ﻿namespace BLTC.Web.Controllers
 {
-    using System.Diagnostics;
+    using System.Threading.Tasks;
 
-    using BLTC.Web.ViewModels;
-
+    using BLTC.Services.Data;
+    using BLTC.Web.ViewModels.Items;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IItemsService itemsService;
+
+        public HomeController(IItemsService itemsService)
+        {
+            this.itemsService = itemsService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var totalProducts = this.itemsService.GetAllApprovedItems<ItemsAllViewModel>();
+            var viewModel = new ItemsAllListViewModel<ItemsAllViewModel> { Items = totalProducts };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult GetByType()
+        {
+            return this.Redirect("/");
         }
 
         public IActionResult Privacy()
         {
             return this.View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return this.View(
-                new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }

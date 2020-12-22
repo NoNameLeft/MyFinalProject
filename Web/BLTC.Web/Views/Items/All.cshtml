@@ -1,13 +1,22 @@
-﻿@{
-    this.ViewData["Title"] = "All Items";
+﻿@model BLTC.Web.ViewModels.Common.PaginatedList<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@{
+    this.ViewData["Title"] = "All Items Page";
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
 }
 
 <div>
     <header>
-        <h1 class="text-center mt-2">All Items</h1>
-        <hr class="bg-primary w-75">
+        <h1 class="text-center mt-2">All available items</h1>
+        <hr class="bg-primary w-100">
     </header>
+    <vc:items-filters></vc:items-filters>
     <partial name="_ItemCardPartial" />
+    <div class="pager" style="display: flex; bottom: 0; justify-content: space-between">
+        <a asp-controller="Items" asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-outline-info @prevDisabled">Previous</a>
+        <a asp-controller="Items" asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-outline-info @nextDisabled">Next</a>
+    </div>
 </div>
 
 @section Scripts {

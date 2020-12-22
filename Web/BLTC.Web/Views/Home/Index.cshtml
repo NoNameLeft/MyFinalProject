@@ -1,9 +1,25 @@
-﻿@using BLTC.Common
+﻿@model BLTC.Web.ViewModels.Items.ItemsAllListViewModel<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@using BLTC.Common
+
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <header>
+        <h3 class="text-center mt-2"><a asp-controller="Items" asp-action="All">These are all our available products!</a></h3>
+        <hr class="bg-primary w-75">
+        <h4>We have more than <big class="text-danger">@this.Model.Items.Count()</big> different items in our shop!</h4>
+    </header>
+    <div class="container">
+        <div class="row justify-content-center">
+            <vc:grouped-items-types></vc:grouped-items-types>
+        </div>
+        <h4 class="mt-3">We work with the best refineries in the world!</h4>
+        <div class="row justify-content-center">
+            <vc:grouped-manufacturers></vc:grouped-manufacturers>
+        </div>
+    </div>
 </div>

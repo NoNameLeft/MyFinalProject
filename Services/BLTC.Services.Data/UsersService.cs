@@ -1,6 +1,5 @@
 ﻿namespace BLTC.Services.Data
 {
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using BLTC.Data.Models;
@@ -15,16 +14,11 @@
             this.usersManager = usersManger;
         }
 
-        public async Task<string> GetUserIdByUsername(string username)
+        public async Task<string> GetIdAsync(string username)
         {
             var user = await this.usersManager.FindByNameAsync(username);
 
             return user.Id;
-        }
-
-        private string GetUserId(ClaimsPrincipal principal)
-        {
-            return principal.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
         }
     }
 }

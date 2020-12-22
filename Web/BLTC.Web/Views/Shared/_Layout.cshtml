@@ -7,6 +7,7 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    <link runat="server" rel="icon" href="~/favicon.ico" type="image/x-icon" />
 </head>
 <body>
     <header>
@@ -22,21 +23,8 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <div class="dropdown">
-                                <a id="dropdownBtn" class="dropbtn nav-link text-dark">Items</a>
-                                <div id="myDropdown" class="dropdown-content">
-                                    <input type="text" placeholder="Search.." id="myInput">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">All Items</a>
-                                    <a class="nav-link text-dark" href="#">Gold</a>
-                                    <a class="nav-link text-dark" href="#">Silver</a>
-                                    <a class="nav-link text-dark" href="#">Palladium</a>
-                                    <a class="nav-link text-dark" href="#">Platinum</a>
-                                    <a class="nav-link text-dark" href="#">Banknotes</a>
-                                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                     {
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Add">Add</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Pending">Pending Approval</a>
-                                     }
-                                </div>
+                                <a id="dropdownBtn" class="dropbtn nav-link text-dark">Products</a>
+                                <partial name="_DropDownMenuPartial" />
                             </div>
                         </li>
                         <li class="nav-item">
@@ -50,14 +38,14 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -67,6 +55,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/js/itemsdropdown.js" asp-append-version="true"></script>
