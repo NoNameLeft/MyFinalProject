@@ -1,7 +1,6 @@
 ﻿namespace BLTC.Web.Controllers
 {
     using System.Linq;
-    using System.Threading.Tasks;
 
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.Manufacturers;
@@ -10,27 +9,27 @@
     public class ManufacturersController : Controller
     {
         private readonly IManufacturersService manufacturersService;
-        private readonly ICountriesService countriesService;
 
-        public ManufacturersController(IManufacturersService manufacturersService, ICountriesService countriesService)
+        public ManufacturersController(IManufacturersService manufacturersService)
         {
             this.manufacturersService = manufacturersService;
-            this.countriesService = countriesService;
         }
 
-        public async Task<IActionResult> Info(int manufacturerId)
+        public IActionResult Info(int manufacturerId)
         {
-            var manufacturer = this.manufacturersService.GetManufacturer<ManufacturersInfoViewModel>(manufacturerId).FirstOrDefault();
-            var country = await this.countriesService.GetCountryById(manufacturer.CountryId);
-            var products = this.manufacturersService.GetAllApprovedProducts(manufacturerId);
+            var manufacturer = this.manufacturersService.GetById<ManufacturersInfoViewModel>(manufacturerId);
+            if (manufacturer is null)
+            {
+                return this.NotFound();
+            }
 
             var viewModel = new ManufacturersInfoViewModel
             {
                 Name = manufacturer.Name,
-                Country = country.Name,
+                Country = manufacturer.Country,
                 Overview = manufacturer.Overview,
                 Logo = manufacturer.Logo,
-                Products = products,
+                Products = manufacturer.Products.Where(x => x.IsApproved).AsEnumerable(),
             };
 
             return this.View(viewModel);

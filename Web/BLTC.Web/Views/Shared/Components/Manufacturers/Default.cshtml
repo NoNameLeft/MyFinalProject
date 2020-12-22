@@ -1,7 +1,7 @@
-﻿@model BLTC.Web.ViewModels.ViewComponents.ManufacturersViewModel
+﻿@model BLTC.Web.ViewModels.ViewComponents.EnumsViewModel
 
 @{
-    var manufacturers = this.Model.Manufacturers.Select(x => new SelectListItem(x.Key, x.Value));
+    var manufacturers = this.Model.KeyValuePairs.Select(x => new SelectListItem(x.Key, x.Value));
 }
 
 @Html.DropDownList("ManufacturerId", manufacturers, new { @class = "custom-select" })

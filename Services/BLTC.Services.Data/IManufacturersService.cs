@@ -7,13 +7,11 @@
 
     public interface IManufacturersService
     {
-        Task<int> GetIdByName(string name);
+        T GetByName<T>(string name);
 
-        Task<Manufacturer> GetById(int id);
+        T GetById<T>(int id);
 
         IEnumerable<T> GetManufacturer<T>(int id);
-
-        IEnumerable<Item> GetAllProducts(int id);
 
         IEnumerable<Item> GetAllApprovedProducts(int id);
 

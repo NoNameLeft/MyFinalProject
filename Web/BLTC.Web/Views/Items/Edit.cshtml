@@ -1,17 +1,40 @@
 ﻿@model BLTC.Web.ViewModels.Items.ItemEditInputModel
 
 @{
+    this.ViewData["Title"] = "Edit Item";
     var user = this.User.Identity.Name;
 }
 
 <div>
     <header>
-        <h1 class="text-center mt-2">Add an item</h1>
+        <h1 class="text-center mt-2">@this.ViewData["Title"]</h1>
         <hr class="bg-primary w-75">
     </header>
     <form enctype="multipart/form-data" class="mx-auto w-50" method="post">
         <partial name="_ItemInputPartial" />
-        <partial name="_ItemEditPartial" />
+        <div>
+            <input asp-for="ItemId" type="hidden" />
+            <input id="typeId" type="hidden" asp-for="@this.Model.Type" />
+            <input id="finenessId" type="hidden" asp-for="@this.Model.Fineness" />
+            <input id="shapeId" type="hidden" asp-for="@this.Model.Shape" />
+            <input id="manufacturerId" type="hidden" asp-for="@this.Model.ManufacturerId" />
+            <div class="image-area mt-4">
+                <output class="form-group" id="list">
+                    @foreach (var image in this.Model.Images)
+                    {
+                        <span>
+                            <img id="image" class="img-fluid rounded shadow-sm mx-auto d-block" src="~/images/items/@image.Name" title="@image.Name" asp-append-version="true" />
+                            <button class="btn btn-danger form-group float-right" onclick="deleteImage()">DELETE</button>
+                            <br />
+                        </span>
+                    }
+                </output>
+            </div>
+            <div id="btns-container" class="d-flex justify-content-around">
+                <button id="addBtn" type="submit" class="btn btn-lg btn-success text-white mb-3">Update</button>
+                <button id="cancelBtn" class="btn btn-lg btn-secondary text-white mb-3" asp-area="Administration" asp-controller="Items" asp-action="Pending">Cancel</button>
+            </div>
+        </div>
     </form>
 </div>
 

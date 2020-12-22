@@ -20,21 +20,6 @@
         private int manufacturerId;
         private IFormFileCollection files;
 
-        public BaseItemInputModel()
-        {
-            this.Username = this.username;
-            this.Name = this.name;
-            this.Type = this.type;
-            this.Shape = this.shape;
-            this.Weight = this.weight;
-            this.Purity = this.purity;
-            this.Fineness = this.fineness;
-            this.Quantity = this.quantity;
-            this.Dimensions = this.dimensions;
-            this.Description = this.description;
-            this.Files = this.files;
-        }
-
         public string Username
         {
             get { return this.username; }
@@ -50,14 +35,14 @@
         }
 
         [Required]
-        public int Type
+        public virtual int Type
         {
             get { return this.type; }
             set { this.SetProperty(ref this.type, value); }
         }
 
         [Required]
-        public int Shape
+        public virtual int Shape
         {
             get { return this.shape; }
             set { this.SetProperty(ref this.shape, value); }
