@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class CountriesController : Controller
+    public class CountriesController : BaseController
     {
         private readonly ICountriesService countriesService;
 

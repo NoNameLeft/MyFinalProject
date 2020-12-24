@@ -51,6 +51,10 @@
         "dist/js/bootstrap.min.js",
         "dist/js/bootstrap.min.js.map"
       ]
+    },
+    {
+      "library": "font-awesome@4.7.0",
+      "destination": "wwwroot/lib/font-awesome/"
     }
   ]
 }

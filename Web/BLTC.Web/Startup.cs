@@ -1,5 +1,6 @@
 ﻿namespace BLTC.Web
 {
+    using System.Configuration;
     using System.Reflection;
 
     using BLTC.Data;
@@ -21,6 +22,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Stripe;
 
     public class Startup
     {
@@ -47,6 +49,8 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.Configure<StripeSetting>(this.configuration.GetSection("Stripe"));
+
             services.AddControllersWithViews(
                 options =>
                     {
@@ -69,12 +73,15 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<ICountriesService, CountriesService>();
+            services.AddTransient<ICartsService, CartsService>();
+            services.AddTransient<IOrdersService, OrdersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            StripeConfiguration.ApiKey = this.configuration.GetSection("Stripe")["SecretKey"];
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

@@ -19,6 +19,10 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        public int? ShippingId { get; set; }
+
+        public virtual ShippingDetails Shipping { get; set; }
+
         [Required]
         public string Number { get; set; }
 
@@ -26,7 +30,7 @@
         public DateTime OrderedOn { get; set; } = DateTime.UtcNow;
 
         [Required]
-        public OrderStatus Status { get; set; } = OrderStatus.Checking;
+        public OrderStatus Status { get; set; } = OrderStatus.InProgress;
 
         public virtual ICollection<OrderItem> Items { get; set; }
     }
