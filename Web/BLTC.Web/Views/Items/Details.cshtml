@@ -47,7 +47,7 @@
                 </div>
                 @if (isAdmin && this.Model.IsApproved)
                 {
-                    <a id="buyBtn" asp-controller="Items" asp-action="AddToCart" asp-route-itemId="@this.Model.Id" class="btn btn-block btn-success">Buy</a>
+                    <a id="buyBtn" asp-controller="Orders" asp-action="AddToCart" asp-route-itemId="@this.Model.Id" class="btn btn-block btn-success">Buy</a>
                     <a id="refuteBtn" class="btn btn-block btn-danger" asp-area="Administration" asp-controller="Items" asp-action="Disprove" asp-route-itemId="@this.Model.Id">Refute</a>
                 }
                 else if (isAdmin && !this.Model.IsApproved)
@@ -58,7 +58,7 @@
                 }
                 else
                 {
-                    <a id="buyBtn" href="/Items/AddToCart?itemId=@this.Model.Id" class="btn btn-block btn-success">Buy</a>
+                    <a id="buyBtn" asp-controller="Orders" asp-action="AddToCart" asp-route-itemId="@this.Model.Id" class="btn btn-block btn-success">Buy</a>
                 }
             </div>
         </div>

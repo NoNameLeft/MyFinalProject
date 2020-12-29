@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.SqlClient;
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -84,7 +85,7 @@
         public async Task UpdateAsync(UpdateItemDto dto, string userId, string imagesFolder)
         {
             var item = this.itemsRepository.All().SingleOrDefault(x => x.Id == dto.ItemId);
-            var itemImages = this.imagesRepository.All().Where(x => x.ItemId == item.Id).ToList(); // teq kadeto sym gi vkaral pri Create
+            var itemImages = this.imagesRepository.All().Where(x => x.ItemId == item.Id).ToList();
 
             await this.RemoveImagesAsync(dto, imagesFolder, itemImages);
 
@@ -118,6 +119,12 @@
         public async Task DeleteAsync(int itemId)
         {
             var item = this.itemsRepository.All().Where(x => x.Id == itemId).SingleOrDefault();
+            var images = this.imagesRepository.All().Where(x => x.ItemId == itemId).ToList();
+            foreach (var i in images)
+            {
+                this.imagesRepository.Delete(i);
+            }
+
             this.itemsRepository.Delete(item);
 
             await this.itemsRepository.SaveChangesAsync();

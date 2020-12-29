@@ -75,6 +75,9 @@
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<ICartsService, CartsService>();
             services.AddTransient<IOrdersService, OrdersService>();
+            services.AddTransient<IReceiptsService, ReceiptsService>();
+            services.AddTransient<IArticlesService, ArticlesService>();
+            services.AddTransient<IMessagesService, MessagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

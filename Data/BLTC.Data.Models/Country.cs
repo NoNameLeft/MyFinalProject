@@ -13,9 +13,11 @@
         }
 
         [Required]
+        [MinLength(5, ErrorMessage = "Name cannot be less than 5 characters.")]
         public string Name { get; set; }
 
         [Required]
+        [MinLength(2, ErrorMessage = "Iso code cannot be less than 2 characters.")]
         public string IsoCode { get; set; }
 
         public virtual ICollection<Manufacturer> Manufacturers { get; set; }

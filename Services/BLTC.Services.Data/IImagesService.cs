@@ -12,6 +12,8 @@
 
         Task<Image> GetImageById(string imageId);
 
+        Task DeleteAsync(int itemId);
+
         Task<IEnumerable<Image>> GetAllImagesByItemId(int itemId);
     }
 }

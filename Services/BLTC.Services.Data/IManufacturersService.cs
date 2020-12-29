@@ -4,9 +4,13 @@
     using System.Threading.Tasks;
 
     using BLTC.Data.Models;
+    using BLTC.Services.Data.Models;
+    using Microsoft.AspNetCore.Http;
 
     public interface IManufacturersService
     {
+        Task AddAsync(CreateManufacturerDto inputDto, IFormFile logo, string imageFolder);
+
         T GetByName<T>(string name);
 
         T GetById<T>(int id);

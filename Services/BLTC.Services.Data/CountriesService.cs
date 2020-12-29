@@ -17,14 +17,17 @@
 
         public async Task Add(string name, string isoCode)
         {
-            var country = new Country
+            if (!this.countriesRepository.All().Any(x => x.IsoCode == isoCode || x.Name == name))
             {
-                Name = name,
-                IsoCode = isoCode,
-            };
+                var country = new Country
+                {
+                    Name = name,
+                    IsoCode = isoCode,
+                };
 
-            await this.countriesRepository.AddAsync(country);
-            await this.countriesRepository.SaveChangesAsync();
+                await this.countriesRepository.AddAsync(country);
+                await this.countriesRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<Country> GetCountryById(int countryId)
