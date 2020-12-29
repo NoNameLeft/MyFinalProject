@@ -1,0 +1,42 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.ItemsListViewModel<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@using BLTC.Data.Models.Enums
+
+@{
+    var itemsByType = this.Model.Items.GroupBy(x => x.Type).ToHashSet();
+}
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" asp-controller="Items" asp-action="All">All Products</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        @foreach (var item in itemsByType)
+        {
+            var type = item.Key;
+            var typeShapes = item.GroupBy(x => x.Shape).ToHashSet();
+            <div class="dropdown navbar-nav w-50 nav-justified">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@type</button>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <li class="dropdown-item"><a asp-controller="Items" asp-action="Filter" asp-route-type="@type">Everything available</a></li>
+                    <li class="dropdown-divider"></li>
+                    @foreach (var ts in typeShapes)
+                    {
+                        var shape = ts.Key;
+                        var itemsByWeight = ts.GroupBy(x => x.Weight).ToHashSet(); // 1 --> 10
+                        <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" tabindex="-1" asp-controller="Items" asp-action="Filter" asp-route-type="@type" asp-route-shape="@shape">@type @shape</a>
+                            <ul class="dropdown-menu">
+                                @foreach (var i in itemsByWeight)
+                                {
+                                    <li class="dropdown-item"><a tabindex="-1" asp-controller="Items" asp-action="Filter" asp-route-type="@type" asp-route-shape="@shape" asp-route-weight="@i.Key">@i.Key.ToString("0") Gram @type @shape</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</nav>

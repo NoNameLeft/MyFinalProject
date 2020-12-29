@@ -1,0 +1,22 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.ItemsListViewModel<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@{
+    var groups = this.Model.Items
+        .GroupBy(x => new { Name = x.ManufacturerName, LogoName = x.ManufacturerLogo.Name })
+        .Select(x => new { Name = x.Key.Name, LogoName = x.Key.LogoName })
+        .ToList();
+}
+
+@foreach (var info in groups)
+{
+    var currentItem = this.Model.Items.FirstOrDefault(x => x.ManufacturerName == info.Name);
+    <div class="col-4">
+        <div class="card-body">
+            <img id="productImg" src="/images/logos/@info.LogoName" class="card-img-top img-fluid card-image" asp-append-version="true" />
+            <h6 class="text-center">
+                <a asp-area="" asp-controller="Manufacturers" asp-action="Info" asp-route-manufacturerId="@currentItem.ManufacturerId"><b>@info.Name</b></a>
+            </h6>
+            <a class="btn btn-block btn-primary" asp-area="" asp-controller="Manufacturers" asp-action="Info" asp-route-manufacturerId="@currentItem.ManufacturerId">View Products</a>
+        </div>
+    </div>
+}

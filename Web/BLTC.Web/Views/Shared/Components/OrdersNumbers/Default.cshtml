@@ -1,0 +1,29 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.OrdersNumbersListViewModel
+
+<body>
+
+    <header class="text-center">
+        <h3>Your Orders:</h3>
+    </header>
+
+    <div class="row">
+        @foreach (var o in this.Model.Orders)
+        {
+            <div class="col-sm-4">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Order #@o.Number</h5>
+                        <h5 class="card-title">Order Status: (@o.Status)</h5>
+                        <p class="card-text text-success">Shipping information for that order:</p>
+                        <p class="card-text"><span class="text-primary">Address</span>: @o.Address</p>
+                        <p class="card-text"><span class="text-primary">City</span>: @o.City</p>
+                        <p class="card-text"><span class="text-primary">Zip</span>: @o.ZipCode</p>
+                        <a asp-controller="Orders" asp-action="Receipt" asp-route-orderNumber="@o.Number" class="btn btn-info" role="button">View Receipt</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</body>
+

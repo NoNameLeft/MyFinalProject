@@ -1,0 +1,22 @@
+﻿@model BLTC.Web.ViewModels.Common.PaginatedList<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+<div class="row">
+    @foreach (var item in this.Model)
+    {
+        <div class="col-md-3 col-sm-4 col-xs-6">
+            <img id="productImg" src="/images/items/@item.Images.ElementAt(0).Name" class="img-fluid" asp-append-version="true" />
+            <div class="card-body">
+                <h6 class="text-center">
+                    <a asp-area="" asp-controller="Items" asp-action="Details" asp-route-itemId="@item.Id"><small>@item.Name</small></a>
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span> <small>from</small> @item.Price €</span>
+                        <span id="available" class="badge badge-success">@item.Quantity</span>
+                    </li>
+                </ul>
+                <a id="viewBtn" class="btn btn-block btn-primary" asp-controller="Items" asp-action="Details" asp-route-itemId="@item.Id">View</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,6 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.ItemsListViewModel<BLTC.Web.ViewModels.ViewComponents.ArticlesTitlesViewModel>
+
+@foreach (var item in this.Model.Items)
+{
+    <a class="dropdown-item" asp-area="" asp-controller="Articles" asp-action="GetByTitle" asp-route-title="@item.Title">@item.Title</a>
+}

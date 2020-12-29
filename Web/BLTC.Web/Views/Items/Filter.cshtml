@@ -1,0 +1,21 @@
+﻿@model BLTC.Web.ViewModels.Common.PaginatedList<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@{
+    this.ViewData["Title"] = this.Model.Title;
+}
+
+<div>
+    <header>
+        <h1 id="title" class="text-center mt-2">@this.ViewData["Title"]</h1>
+        <hr class="bg-primary w-75">
+        <link href="~/css/allitemspage.css" rel="stylesheet" asp-append-version="true" />
+    </header>
+    <vc:items-filters></vc:items-filters>
+    <partial name="_ItemCardPartial" />
+</div>
+
+@section Scripts {
+    <script src="~/js/itemavailabilitycontrol.js" asp-append-version="true" async></script>
+    <script src="~/js/imagesmagnifier.js" asp-append-version="true" async></script>
+    <script src="~/js/pluralizaitemstitle.js" asp-append-version="true" async></script>
+}

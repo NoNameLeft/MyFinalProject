@@ -1,0 +1,7 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.EnumsViewModel
+
+@{
+    var itemShapes = this.Model.KeyValuePairs.Select(x => new SelectListItem(x.Key, x.Value));
+}
+
+@Html.DropDownList("Shape", itemShapes, new { @class = "custom-select" })

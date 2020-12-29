@@ -1,0 +1,96 @@
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<BLTC.Data.Models.StripeSetting> Stripe
+@model BLTC.Web.ViewModels.Orders.BillingInfoInputModel
+@{
+    this.ViewData["Title"] = "Your Receipt Page";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/checkoutform.css" />
+
+<div class="row">
+    <div class="col-75">
+        <div class="container">
+            <form asp-controller="Orders" asp-action="Charge" id="payment-form">
+
+                <div class="row">
+                    <div class="col-50">
+                        <h3>Billing Address</h3>
+                        <label asp-for="FullName"> <i class="fa fa-user"></i> Full Name</label>
+                        <input type="text" asp-for="FullName">
+
+                        <label asp-for="Email"> <i class="fa fa-envelope"></i> Email</label>
+                        <input type="text" asp-for="Email">
+
+                        <label asp-for="Address"> <i class="fa fa-address-card-o"></i> Address</label>
+                        <input type="text" asp-for="Address">
+
+                        <label asp-for="City"> <i class="fa fa-home" style="font-size:20px"></i> City</label>
+                        <input type="text" asp-for="City">
+
+                        <label asp-for="State"> <i class="fa fa-institution"></i> State</label>
+                        <input type="text" asp-for="State">
+
+                        <label asp-for="Phone"> <i class="fa fa-phone" style="font-size:17px"></i> Phone</label>
+                        <input type="text" asp-for="Phone">
+
+                        <input type="number" asp-for="TotalPrice" value="" hidden />
+
+                    </div>
+
+                    <div class="col-50">
+                        <h3>Payment</h3>
+                        <label for="fname">Accepted Cards</label>
+                        <div class="icon-container">
+                            <i class="fa fa-cc-visa" style="color:navy;"></i>
+                            <i class="fa fa-cc-amex" style="color:blue;"></i>
+                            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                            <i class="fa fa-cc-discover" style="color:orange;"></i>
+                        </div>
+
+                        <label asp-for="CardName">Name on Card</label>
+                        <input type="text" asp-for="CardName">
+
+                        <label for="card-number">Credit Card Number</label>
+                        <div type="text" id="card-number" name="cardnumber"></div>
+
+                        <label for="card-exp">Expiration</label>
+                        <div type="text" id="card-exp" name="expdate"></div>
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label asp-for="ZipCode">Zip</label>
+                                <input type="text" asp-for="ZipCode">
+                            </div>
+                            <div class="col-50">
+                                <label for="card-cvc">CVC Number</label>
+                                <div type="text" id="card-cvc" name="cvv"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <label>
+                    <input class="StripeToken" asp-for="Token" hidden />
+                    <input id="chkBox" type="checkbox" name="sameadr"> <span id="shippingInfo" class="text-warning">Shipping address NOT same as billing</span>
+                </label>
+
+                <partial name="_CustomerDataPartial" />
+
+                <button id="checkoutBtn" type="submit" class="btn">Finish your order</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-25">
+        <vc:checkout-items></vc:checkout-items>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="~/js/stripechargesinfo.js"></script>
+    <script src="~/js/paymentcheckboxcontrol.js"></script>
+    <script src="~/js/checkouttotalcount.js"></script>
+    <script src="~/js/checkouttotalprice.js"></script>
+}

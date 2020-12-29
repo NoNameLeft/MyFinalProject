@@ -1,0 +1,52 @@
+﻿@model BLTC.Web.ViewModels.Messages.MessageCreateInputModel
+
+<link href="~/css/contactpage.css" rel="stylesheet" asp-append-version="true" />
+<div style="text-align:center">
+    <h2>Contact Us</h2>
+    <hr class="bg-primary w-75">
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+</div>
+<div class="row">
+    <div class="column">
+        <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.31656298845!2d23.359472815754796!3d42.65464662443873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8682acea4c49%3A0x5a35920a97bc185a!2z0YPQuy4g4oCe0JDQudC00LXQvNC40YDigJwsIDE3NTYg0LYu0LouINCU0YrRgNCy0LXQvdC40YbQsCwg0KHQvtGE0LjRjw!5e0!3m2!1sbg!2sbg!4v1609126303356!5m2!1sbg!2sbg" width="500" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></p>
+    </div>
+    <div class="column">
+        <form enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <div class="text-dark">
+                    <label asp-for="FirstName">First Name</label>
+                </div>
+                <input type="text" asp-for="FirstName" placeholder="Your name..">
+                <span class="text-danger" asp-validation-for="FirstName"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="text-dark">
+                    <label asp-for="LastName">Last Name</label>
+                </div>
+                <input type="text" asp-for="LastName" placeholder="Your last name..">
+                <span class="text-danger" asp-validation-for="LastName"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="text-dark">
+                    <label asp-for="Email">Email</label>
+                </div>
+                <input type="text" asp-for="Email" placeholder="Your email adress.." />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="text-dark">
+                    <label asp-for="Subject">Subject</label>
+                </div>
+                <textarea asp-for="Subject" placeholder="Write something.." style="height:170px"></textarea>
+                <span class="text-danger" asp-validation-for="Subject"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-success text-white mb-3">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

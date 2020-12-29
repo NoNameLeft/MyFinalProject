@@ -1,0 +1,17 @@
+﻿@using BLTC.Common 
+
+<div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput">
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Items" asp-action="Add">Add</a>
+        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Items" asp-action="Pending">Pending Approval</a>
+        <hr class="bg-primary w-100">
+    }
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">All</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Filter" asp-route-type="Gold">Gold</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Filter" asp-route-type="Silver">Silver</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Filter" asp-route-type="Platinum">Platinum</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Filter" asp-route-type="Palladium">Palladium</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Filter" asp-route-type="Currency">Banknotes</a>
+</div>
