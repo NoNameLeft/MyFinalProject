@@ -1,6 +1,7 @@
 ﻿namespace BLTC.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.Common;
@@ -9,20 +10,29 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ItemsController : Controller
+    public class ItemsController : BaseController
     {
         private readonly int defaultPageSize = 8;
 
         private readonly IItemsService itemsService;
         private readonly IManufacturersService manufacturersService;
+        private readonly ICartsService cartsService;
+        private readonly IOrdersService ordersService;
+        private readonly IUsersService usersService;
         private readonly IDictionary<string, string> imagesNameAndContentType;
 
         public ItemsController(
             IItemsService itemsService,
-            IManufacturersService manufacturersService)
+            IManufacturersService manufacturersService,
+            ICartsService cartsService,
+            IOrdersService ordersService,
+            IUsersService usersService)
         {
             this.itemsService = itemsService;
             this.manufacturersService = manufacturersService;
+            this.cartsService = cartsService;
+            this.ordersService = ordersService;
+            this.usersService = usersService;
             this.imagesNameAndContentType = new Dictionary<string, string>();
         }
 
@@ -104,6 +114,32 @@
             };
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddToCart(int itemId)
+        {
+            if (string.IsNullOrEmpty(this.User.Identity.Name))
+            {
+                return this.RedirectToAction("Details", new { itemId });
+            }
+
+            var userId = await this.usersService.GetIdAsync(this.User.Identity.Name);
+
+            if (!this.cartsService.HasCart(userId))
+            {
+                await this.cartsService.CreateAsync(userId);
+            }
+
+            int orderId = 0;
+            if (this.ordersService.IsFinished(userId))
+            {
+                _ = await this.ordersService.CreateAsync(userId);
+            }
+
+            await this.cartsService.AddItemToCart(orderId, itemId, userId);
+
+            return this.RedirectToAction("Details", new { itemId });
         }
     }
 }

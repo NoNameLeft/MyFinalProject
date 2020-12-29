@@ -6,7 +6,7 @@
     using BLTC.Web.ViewModels.Manufacturers;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ManufacturersController : Controller
+    public class ManufacturersController : BaseController
     {
         private readonly IManufacturersService manufacturersService;
 

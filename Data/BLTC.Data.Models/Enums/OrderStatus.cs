@@ -2,7 +2,7 @@
 {
     public enum OrderStatus
     {
-        Checking = 0,
+        InProgress = 0,
         Processing = 1,
         Packing = 2,
         SentOut = 3,
