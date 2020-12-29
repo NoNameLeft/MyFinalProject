@@ -48,6 +48,16 @@
             return await Task.FromResult(this.imagesRepository.AllAsNoTracking().Where(x => x.ItemId == itemId).ToList());
         }
 
+        public async Task DeleteAsync(int itemId)
+        {
+            var images = this.imagesRepository.All().Where(x => x.ItemId == itemId);
+            foreach (var i in images)
+            {
+                this.imagesRepository.Delete(i);
+                await this.imagesRepository.SaveChangesAsync();
+            }
+        }
+
         private void GetPropertyAndAssingValue(Type type, Image image, int typeId)
         {
             // validate if such property exist

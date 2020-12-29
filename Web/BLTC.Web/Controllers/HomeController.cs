@@ -1,9 +1,8 @@
 ﻿namespace BLTC.Web.Controllers
 {
-    using System.Threading.Tasks;
-
     using BLTC.Services.Data;
     using BLTC.Web.ViewModels.Items;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
@@ -15,6 +14,7 @@
             this.itemsService = itemsService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var totalProducts = this.itemsService.GetAllApprovedItems<ItemsAllViewModel>();
@@ -23,11 +23,8 @@
             return this.View(viewModel);
         }
 
-        public IActionResult GetByType()
-        {
-            return this.Redirect("/");
-        }
-
+        [AllowAnonymous]
+        [Route("/site/forms/privacy")]
         public IActionResult Privacy()
         {
             return this.View();

@@ -3,5 +3,28 @@
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+<body>
+
+    <header class="text-center">
+        <h2>@this.ViewData["Title"]</h2>
+    </header>
+
+    <div class="row">
+        @foreach (var msg in this.Model.Messages)
+        {
+            <div class="col-sm-4">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Message #<span>@msg.Id</span> </h5>
+                        <p class="card-text text-warning">Message information:</p>
+                        <p class="card-text"><span class="text-info">First Name</span>: @msg.FirstName</p>
+                        <p class="card-text"><span class="text-info">Last Name</span>: @msg.LastName</p>
+                        <p class="card-text"><span class="text-info">Subject</span>: @msg.Subject</p>
+                        <a asp-controller="Message" asp-action="Resolve" asp-route-messageId="@msg.Id" class="btn btn-info" role="button">Resolve Issue</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</body>

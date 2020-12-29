@@ -35,10 +35,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Cart">Cart</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="UsersOrders">Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Orders" asp-action="Charge">Checkout</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="ContactUs">Contacts</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a id="dropdownBtn" class="dropbtn nav-link text-dark">Articles</a>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <vc:articles-titles></vc:articles-titles>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -66,7 +74,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     <script src="~/js/itemsdropdown.js" asp-append-version="true"></script>
-    <script>var AppGlobal={user:{name:"@(this.User.Identity.Name)",role:"@(this.User.IsInRole(GlobalConstants.AdministratorRoleName))"}};</script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -9,20 +9,21 @@
     {
         public Author()
         {
-            this.Articles = new HashSet<AuthorArticle>();
+            this.Articles = new HashSet<Article>();
             this.Images = new HashSet<Image>();
         }
 
         [Required]
+        [MinLength(4, ErrorMessage = "Author's name should be no less than 4 characters.")]
         public string FirstName { get; set; }
 
         [Required]
+        [MinLength(6, ErrorMessage = "Author's name should be no less than 6 characters.")]
         public string LastName { get; set; }
 
-        [Required]
         public string Resume { get; set; }
 
-        public virtual ICollection<AuthorArticle> Articles { get; set; }
+        public virtual ICollection<Article> Articles { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
     }

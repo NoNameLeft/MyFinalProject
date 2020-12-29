@@ -42,10 +42,6 @@
 
         public DbSet<Article> Articles { get; set; }
 
-        public DbSet<AuthorArticle> AuthorsArticles { get; set; }
-
-        public DbSet<ArticleUser> ArticlesUsers { get; set; }
-
         public DbSet<StripeSetting> StripeSettings { get; set; }
 
         public DbSet<ShippingDetails> ShippingDetails { get; set; }
@@ -53,6 +49,8 @@
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         public DbSet<Receipt> Receipts { get; set; }
+
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

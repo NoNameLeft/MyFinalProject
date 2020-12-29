@@ -27,7 +27,7 @@
         }
 
         [Required]
-        [MinLength(6)]
+        [MinLength(6, ErrorMessage = "Item's name cannot be less than 5 characters long.")]
         public string Name
         {
             get { return this.name; }
@@ -49,7 +49,7 @@
         }
 
         [Required]
-        [Range(1, 12500)]
+        [Range(1, 12500, ErrorMessage = "Weight should be between 1 and 12500 grams.")]
         public decimal Weight
         {
             get { return this.weight; }
@@ -78,6 +78,8 @@
             set { this.SetProperty(ref this.quantity, value); }
         }
 
+        [Required]
+        [MinLength(5, ErrorMessage = "Dimensions cannot be less than 5 characters.")]
         public string Dimensions
         {
             get { return this.dimensions; }
@@ -85,7 +87,7 @@
         }
 
         [Required]
-        [MinLength(50)]
+        [MinLength(50, ErrorMessage = "Item's description should be at least 50 characters long.")]
         public string Description
         {
             get { return this.description; }

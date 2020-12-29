@@ -4,6 +4,11 @@ for details on configuring this project to bundle and minify static web assets. 
 @import "itemsdropdownlist.css";
 @import "allitemspage.css";
 
+#articles:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
 .dropdown-submenu {
     position: relative;
 }
@@ -53,7 +58,7 @@ for details on configuring this project to bundle and minify static web assets. 
         }
 
 a.nav-link {
-    color: #fff;
+    color: #007bff;
     text-decoration: none;
     letter-spacing: 0.01em;
     display: block;

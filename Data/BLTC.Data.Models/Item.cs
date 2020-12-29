@@ -20,6 +20,7 @@
         public virtual Manufacturer Manufacturer { get; set; }
 
         [Required]
+        [MinLength(6, ErrorMessage = "Item's name cannot be less than 5 characters long.")]
         public string Name { get; set; }
 
         [Required]
@@ -29,6 +30,7 @@
         public ItemShape Shape { get; set; }
 
         [Required]
+        [Range(1, 12500, ErrorMessage = "Weight should be between 1 and 12500 grams.")]
         public decimal Weight { get; set; }
 
         [Required]
@@ -44,9 +46,11 @@
         public int Quantity { get; set; }
 
         [Required]
+        [MinLength(5, ErrorMessage = "Dimensions cannot be less than 5 characters.")]
         public string Dimensions { get; set; }
 
         [Required]
+        [MinLength(50, ErrorMessage = "Item's description should be at least 50 characters long.")]
         public string Description { get; set; }
 
         public bool IsApproved { get; set; } = false;
