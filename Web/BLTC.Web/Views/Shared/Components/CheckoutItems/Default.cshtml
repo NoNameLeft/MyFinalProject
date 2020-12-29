@@ -1,0 +1,24 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.CheckoutItemsListViewModel
+
+@{
+    var totalPrice = 0.0m;
+}
+
+<div class="container">
+    <h4>
+        Cart
+        <span class="price" style="color:black">
+            <i class="fa fa-shopping-cart"></i>
+            <b id="totalcount"></b>
+        </span>
+    </h4>
+    @foreach (var item in this.Model.CartItems)
+    {
+        var combinedPrice = item.Price * item.Count;
+        totalPrice += combinedPrice;
+
+        <p><a asp-controller="Items" asp-action="Details" asp-route-itemId="@item.Id">@item.Name (x <b id="count">@item.Count</b>)</a> <span class="price">@combinedPrice &euro;</span></p>
+    }
+    <hr>
+    <p>Total <span class="price" style="color:black"><b id="finalprice">@totalPrice &euro;</b></span></p>
+</div>

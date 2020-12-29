@@ -1,0 +1,98 @@
+﻿@model BLTC.Web.ViewModels.Orders.ReceiptsListViewModel
+
+@{
+    var total = 0.0m;
+    var num = this.Model.Receipts.First().OrderNumber;
+    var date = this.Model.Receipts.First().OrderedDate;
+}
+
+<link href="~/css/receiptpage.css" rel="stylesheet" asp-append-version="true" />
+
+<div id="container">
+    <div class="row">
+        <div class="">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <address>
+                        <strong>BLTC</strong>
+                        <br>
+                        1756 Kliment Ohridski Blvd
+                        <br>
+                        Sofia City, Sofia 1000
+                        <br>
+                        <abbr title="Phone">P:</abbr> (+359) 884 917675
+                    </address>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <p>
+                        <em>Date: @date</em>
+                    </p>
+                    <p>
+                        <em>Receipt #: @num</em>
+                    </p>
+                </div>
+            </div>
+            <div id="secondmainrow" class="row">
+                <div class="text-center">
+                    <h1>Receipt</h1>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>#</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var receipt in this.Model.Receipts)
+                        {
+                            total += receipt.TotalItemPrice;
+
+                            <tr>
+                                <td class="col-md-9"><em>@receipt.ItemName</em></td>
+                                <td class="col-md-1" style="text-align: center"> @receipt.Count </td>
+                                <td class="col-md-1 text-center">@receipt.Price.ToString("F") &euro;</td>
+                                <td class="col-md-1 text-center">@receipt.TotalItemPrice.ToString("F") &euro;</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right">
+                                <p>
+                                    <strong>Subtotal: </strong>
+                                </p>
+                                <p>
+                                    <strong>Tax: </strong>
+                                </p>
+                            </td>
+                            <td class="text-center">
+                                @{ 
+                                    var subTotal = (total - (total * 0.2m)).ToString("F");
+                                    var taxes = (total * 0.2m).ToString("F");
+                                }
+                                <p>
+                                    <strong>@subTotal &euro;</strong>
+                                </p>
+                                <p>
+                                    <strong>@taxes &euro;</strong>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>   </td>
+                            <td>   </td>
+                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                            <td class="text-center text-danger"><h4><strong>@total&euro;</strong></h4></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-success btn-lg btn-block">
+                    Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

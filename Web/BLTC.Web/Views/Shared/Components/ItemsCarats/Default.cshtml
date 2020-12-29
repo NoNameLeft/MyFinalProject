@@ -1,0 +1,7 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.EnumsViewModel
+
+@{
+    var carats = this.Model.KeyValuePairs.Select(x => new SelectListItem(x.Key, x.Value));
+}
+
+@Html.DropDownList("Fineness", carats, new { @class = "custom-select" })

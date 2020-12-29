@@ -1,0 +1,25 @@
+﻿@model BLTC.Web.ViewModels.Common.PaginatedList< BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@using BLTC.Common
+
+@{
+    this.ViewData["Title"] = "Items pending approval";
+    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.NextPage ? "disabled" : "";
+}
+
+<div>
+    <header>
+        <h1 class="text-center mt-2">Items pending approval</h1>
+        <hr class="bg-primary w-75">
+    </header>
+    <partial name="_ItemCardPartial" />
+    <div class="pager" style="display: flex; bottom: 0; justify-content: space-between">
+        <a asp-area="Administration" asp-controller="Items" asp-action="Pending" asp-route-pageNumber="@(Model.PageIndex - 1)" class="btn btn-outline-info @prevDisabled">Previous</a>
+        <a asp-area="Administration" asp-controller="Items" asp-action="Pending" asp-route-pageNumber="@(Model.PageIndex + 1)" class="btn btn-outline-info @nextDisabled">Next</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/imagesmagnifier.js" asp-append-version="true" async></script>
+}

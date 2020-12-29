@@ -1,0 +1,13 @@
+﻿#container {
+    width: 600px;
+    height: 600px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#secondmainrow {
+    padding-left: 10px;
+}

@@ -1,0 +1,59 @@
+﻿@model BLTC.Web.ViewModels.Articles.ArticleSingleViewModel
+
+@{
+    var author = $"{this.Model.AuthorsFirstName} {this.Model.AuthorsLastName}";
+    var textParts = this.Model.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+    var resumeParts = this.Model.AuthorsResume.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+}
+
+<div class="row">
+    <div class="col">
+        <header>
+            <h2 class="text-capitalize text-center">@this.Model.Title</h2>
+        </header>
+        <article>
+            @foreach (var part in textParts)
+            {
+                <p class="text-left">@part</p>
+            }
+
+        </article>
+    </div>
+    <div class="col">
+        <div class="text-left" style="position: relative;">
+            <p class="text-bold text-info">Article by @author</p>
+            <img src="~/images/authors/@this.Model.AuthorsAvatar" alt="AuthorImg" />
+            <button id="resumeBtn" class="btn btn-dark" style="position:absolute; left:0; bottom:0;">Author's Resume</button>
+        </div>
+        <article class="text-justify">
+            @foreach (var part in resumeParts)
+            {
+                <p id="resume" class="text-left text-info">@part</p>
+            }
+        </article>
+    </div>
+</div>
+
+@section Scripts{
+    <script async>
+        window.onload = function () {
+            var btn = document.getElementById('resumeBtn')
+            var resume = document.querySelectorAll('#resume');
+            for (var i = 0; i < resume.length; i++) {
+                resume[i].style.display = 'none';
+            }
+
+            btn.addEventListener('click', function () {
+                for (var i = 0; i < resume.length; i++) {
+                    if (resume[i].style.display == 'none') {
+                        resume[i].style.display = 'block';
+                    }
+                    else {
+                        resume[i].style.display = 'none';
+                    }
+                }
+                
+            });
+        };
+    </script>
+}

@@ -1,0 +1,71 @@
+﻿@model BLTC.Web.ViewModels.Articles.ArticleWriteInputModel
+
+<div>
+    <form enctype="multipart/form-data" class="mx-auto w-50" method="post">
+        <h1 class="text-center mt-2">Add Article</h1>
+        <hr class="bg-primary w-75">
+        <div asp-validation-summary="All" class="text-warning"> </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="Title" class="h3 mb-2">Title:</label>
+            </div>
+            <input asp-for="Title" class="form-control" />
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="Text" class="h3 mb-2">Text:</label>
+            </div>
+            <textarea asp-for="Text" class="form-control" cols="100" rows="20" placeholder="Write the item's description here..." required></textarea>
+            <span class="text-danger" asp-validation-for="Text"></span>
+        </div>
+        <div class="form-group text-danger">
+            <div class="text-danger d-flex justify-content-center">
+                <label class="h3 mb-2">Author's information:</label>
+            </div>
+            <hr class="bg-primary w-100">
+        </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="FirstName" class="h3 mb-2">FirstName:</label>
+            </div>
+            <input asp-for="FirstName" class="form-control" />
+            <span class="text-danger" asp-validation-for="FirstName"></span>
+        </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="LastName" class="h3 mb-2">LastName:</label>
+            </div>
+            <input asp-for="LastName" class="form-control" />
+            <span class="text-danger" asp-validation-for="LastName"></span>
+        </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="Resume" class="h3 mb-2">Resume:</label>
+            </div>
+            <textarea asp-for="Resume" class="form-control" cols="50" rows="5" placeholder="Write the author's resume here..." required></textarea>
+            <span class="text-danger" asp-validation-for="Resume"></span>
+        </div>
+        <div class="form-group">
+            <div class="text-dark d-flex justify-content-center">
+                <label asp-for="Files" class="h3 mb-2">Select Images:</label>
+            </div>
+            <div class="custom-file">
+                <input asp-for="Files" class="form-control custom-file-input" />
+                <label class="custom-file-label">Choose File...</label>
+            </div>
+            <span class="text-danger" asp-validation-for="Files"></span>
+        </div>
+        <div class="image-area mt-4">
+            <output class="form-group" id="list"></output>
+        </div>
+        <div id="btns-container" class="d-flex justify-content-center">
+            <button id="addBtn" type="submit" class="btn btn-block btn-primary text-white mb-3">Add</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/addimagestoitem.js" async asp-append-version="true"></script>
+    <script src="~/js/adduploadedimagesasfiles.js" async asp-append-version="true"></script>
+}

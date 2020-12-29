@@ -1,0 +1,27 @@
+﻿@model BLTC.Web.ViewModels.ViewComponents.ItemsListViewModel<BLTC.Web.ViewModels.Items.ItemsAllViewModel>
+
+@{
+    var itemTypes = this.Model.Items
+        .GroupBy(x => x.Type)
+        .Select(x => new { ItemType = x.Key, LowestPrice = x.Min(p => p.Price) })
+        .OrderBy(x => x.LowestPrice)
+        .ToList();
+}
+
+@foreach (var it in itemTypes)
+{
+    <div class="col-4">
+        <img src="/images/items/gold-home-page.png" class="card-img-top img-fluid card-image" asp-append-version="true" />
+        <div class="card-body">
+            <h6 class="text-center">
+                <a asp-controller="Items" asp-action="Filter" asp-route-type="@it.ItemType.ToString()"><b>@it.ItemType</b></a>
+            </h6>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span> <small class="text-danger">now from: </small>@it.LowestPrice €</span>
+                </li>
+            </ul>
+            <a id="viewBtn" class="btn btn-block btn-primary" asp-controller="Items" asp-action="Filter" asp-route-type="@it.ItemType.ToString()">View Products</a>
+        </div>
+    </div>
+}
